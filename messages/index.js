@@ -276,7 +276,7 @@ bot.dialog('/validateUser', [
 
         var eLegalEmail = checkEmail(UserEmail);
 
-        if (sss -- "false") {
+        if (eLegalEmail == "false") {
 
             session.sendTyping();
 
