@@ -100,9 +100,6 @@ var connector = useEmulator ? new builder.ChatConnector() : new botbuilder_azure
 
 var bot = new builder.UniversalBot(connector);
 
-//var bot = new builder.UniversalBot(connector, function (session) {
- //   session.send("You said: '%s'. Try asking for 'help'.", session.message.text);
-//});
 
 
 
