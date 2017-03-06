@@ -264,17 +264,24 @@ bot.dialog('/validateUser', [
 
        UserEmail = results.response.toLocaleLowerCase();
 
-        function checkEmail(UserEmail) {
 
-            var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+            function verifyEmail(){
+            var status = false;     
+            var emailRegEx = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+                if (UserEmail.search(emailRegEx) == -1) {
+                    alert("Please enter a valid email address.");
+                } else {
+                    alert("Woohoo!  The email address is in the correct format and they are the same.");
+                    status = true;
+                }
+                return status;
+            }
 
-            if (!filter.test(UserEmail.value)) {
-            alert('Please provide a valid email address');
-            UserEmail.focus;
-            return false;
-        }
 
-        var eLegalEmail = checkEmail(UserEmail);
+
+
+
+        var eLegalEmail = verifyEmail(UserEmail);
 
         if (eLegalEmail == "false") {
 
