@@ -215,7 +215,7 @@ bot.dialog('/', [
 
             session.beginDialog("/signin"); 
 
-        } else if (session.userData.emailNotLegal == 'Treu') {
+        } else if (session.userData.emailNotLegal == 'true') {
 
             session.send("Let's try again?");
 
@@ -286,7 +286,9 @@ bot.dialog('/validateUser', [
 
             session.send("Are you sure that " + UserEmail  + " is a legal Email Address? I think not... "); 
 
-            session.userData.emailNotLegal = 'Treu';
+            session.userData.emailNotLegal = 'true';
+
+            session.userData.emailValidated = '';
 
             session.endDialog();            
 
