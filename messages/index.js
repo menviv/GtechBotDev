@@ -265,7 +265,7 @@ bot.dialog('/validateUser', [
        UserEmail = results.response.toLocaleLowerCase();
 
 
-            function verifyEmail(){
+            function verifyEmail(UserEmail) {
             var status = false;     
             var emailRegEx = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
                 if (UserEmail.search(emailRegEx) == -1) {
