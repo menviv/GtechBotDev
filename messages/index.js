@@ -208,12 +208,18 @@ bot.dialog('/', [
 
         }
 
-    },
+    },   
     function (session, results) {
 
         if (session.userData.emailValidated == 'True') {
 
             session.beginDialog("/signin"); 
+
+        } else if (session.userData.emailNotLegal == 'Treu') {
+
+            session.send("Let's try again?");
+
+            session.beginDialog("/validateUser"); 
 
         } else if (session.userData.emailValidated == 'False') {
 
@@ -258,11 +264,44 @@ bot.dialog('/validateUser', [
 
        UserEmail = results.response.toLocaleLowerCase();
 
-       EmailError =  results.response.toLocaleLowerCase();
+        function checkEmail(UserEmail) {
 
-       session.sendTyping();
+            var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
-       AllocateUserEmail();
+            if (!filter.test(UserEmail.value)) {
+            alert('Please provide a valid email address');
+            UserEmail.focus;
+            return false;
+        }
+
+        var eLegalEmail = checkEmail(UserEmail);
+
+        if (sss -- "false") {
+
+            session.sendTyping();
+
+            session.send("Are you sure that " + UserEmail  + " is a legal Email Address? I think not... "); 
+
+            session.userData.emailNotLegal = 'Treu';
+
+            session.endDialog();            
+
+
+        } else {
+
+            session.sendTyping();
+
+            AllocateUserEmail();
+
+            EmailError =  results.response.toLocaleLowerCase();
+
+        }
+
+
+
+       
+
+
 
 
 
