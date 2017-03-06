@@ -286,9 +286,11 @@ bot.dialog('/validateUser', [
 
             session.send("Are you sure that " + UserEmail  + " is a legal Email Address? I think not... "); 
 
-            session.userData.emailNotLegal = 'true';
+            session.userData.emailNotLegal = 'True';
 
             session.userData.emailValidated = '';
+
+            UserEmail = '';
 
             session.endDialog();            
 
