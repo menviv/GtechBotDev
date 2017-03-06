@@ -266,19 +266,16 @@ bot.dialog('/validateUser', [
 
 
             function verifyEmail(UserEmail) {
-            var status = false;     
+            var status = "false";     
             var emailRegEx = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
                 if (UserEmail.search(emailRegEx) == -1) {
                    // alert("Please enter a valid email address.");
                 } else {
                  //   alert("Woohoo!  The email address is in the correct format and they are the same.");
-                    status = true;
+                    status = "true";
                 }
                 return status;
             }
-
-
-
 
 
         var eLegalEmail = verifyEmail(UserEmail);
