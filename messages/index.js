@@ -221,6 +221,8 @@ bot.dialog('/', [
 
             session.beginDialog("/validateUser"); 
 
+            session.userData.emailNotLegal = '';
+
         } else if (session.userData.emailValidated == 'False') {
 
             session.send("I'm sorry, but I can't find your email on my lists..");
