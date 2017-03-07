@@ -850,6 +850,8 @@ bot.dialog('/UserResponseToTicket', [
 
                     if (nresultLen > 0 ) {
 
+                        GetUserReponsesForTicketNO()
+
                         function GetUserReponsesForTicketNO() {
 
                             var cursor = TicketResponses.find({"TicketNO": TicketNumber});
