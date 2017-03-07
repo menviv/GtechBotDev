@@ -876,7 +876,9 @@ bot.dialog('/UserResponseToTicket', [
 
                                     //TicketResponsesArray.push(ResponseObjec);
 
-                                    session.send("ghghgjgjgjgjgjgjgjgjhgj" + ResponseObjec);
+                                  
+
+                                    session.send("ghghgjgjgjgjgjgjgjgjhgj" + JSON.stringify(ResponseObjec));
 
                                     ReviewTicketWithResponses();
 
