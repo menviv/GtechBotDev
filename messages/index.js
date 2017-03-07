@@ -874,7 +874,7 @@ bot.dialog('/UserResponseToTicket', [
 
                                     ResponseObjec.ObjectTxt = result[i].ObjectTxt;
 
-                                    ResponseObjec.TicketNumber = result[i].TicketNumber;
+                                    ResponseObjec.TicketNumber = TicketNumber;
 
                                     ResponseObjec.Status = result[i].Status;
 
