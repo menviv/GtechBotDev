@@ -622,8 +622,6 @@ bot.dialog('/ErrorAllocateEmail', [
 
             session.send("Ok, I've just notified my supervisor and he said he will cantact you directly within the next 24 hours. ");
 
-            session.sendTyping();
-
             session.send("I hope that helps... Goodbye.");
 
             session.userData.emailValidated = 'Error';
