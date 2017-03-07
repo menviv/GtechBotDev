@@ -2818,12 +2818,12 @@ bot.dialog('/CreateNewUser', [
 
         session.userData.newUserPassword = results.response;
 
-        builder.Prompts.choice(session, "[Admin mode:] Profile:", ["Standard User", "Admin"]);
+        builder.Prompts.choice(session, "[Admin mode:] Profile:", ["user", "admin"]);
             
     },
     function (session, results) {
 
-        session.userData.Profile = results.response;
+        session.userData.newUserProfile = results.response;
 
         builder.Prompts.choice(session, "[Admin mode:] Org:", ["HIV.ORG.IL", "888", "Annonimouse", "Gtech"]);
             
