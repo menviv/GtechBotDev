@@ -2930,8 +2930,7 @@ bot.dialog('/WhoIsThatBot', [
             var NewRecord = {
                 'CreatedTime': LogTimeStame,
                 '_id': WhoIsThatBotResponseID,
-                'Type':'First',
-                'Name':OrgName,
+                'Type':'Text',
                 'Text':NewRecord
             }    	
             
@@ -2955,7 +2954,7 @@ bot.dialog('/WhoIsThatBot', [
 
         collTickets.update (
         { "_id": WhoIsThatBotResponseID },
-        { $set: { 'Type': 'Second', 'Text2': UserResponseWhoIsThatBot, 'Text2CreatedDate':LogTimeStame } })
+        { $set: { 'Text2': UserResponseWhoIsThatBot, 'Text2CreatedDate':LogTimeStame } })
 
 
 
