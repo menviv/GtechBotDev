@@ -235,7 +235,7 @@ bot.dialog('/', [
 
             session.userData.emailValidated = '';
 
-        } else if (session.userData.whoIsThatBot == 'Done') {
+        } else if (session.userData.whoIsThatBot == 'Done' || session.userData.emailValidated == 'New') {
 
             session.beginDialog("/validateUser"); 
 
@@ -1164,7 +1164,7 @@ bot.dialog('logoutDialog', function (session, args) {
 
         session.userData.adminTokenReset = 'False';
 
-        session.userData.emailValidated = 'False'; 
+        session.userData.emailValidated = 'New'; 
 
         session.beginDialog("/");
 
