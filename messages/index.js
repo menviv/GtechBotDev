@@ -930,7 +930,7 @@ bot.dialog('/UserResponseToTicket', [
 
                            // }
 
-                           session.send("ghjgjh" + ResponseObjec.CreatedTime);
+                           session.send("ghjgjh" + ResponseObjec);
 
     
                             var msg = new builder.Message(session)
