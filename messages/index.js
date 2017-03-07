@@ -836,7 +836,7 @@ bot.dialog('/UserResponseToTicket', [
 
     function (session) {
 
-        nTicketNumber = parseInt(TicketNumber);
+        var nTicketNumber = parseInt(TicketNumber);
 
                 var cursor = collTickets.find({ "ObjectNo" : nTicketNumber});
                 var result = [];
@@ -906,15 +906,15 @@ bot.dialog('/UserResponseToTicket', [
                         function ReviewTicketWithResponses(TicketResponsesArray) {
                         
 
-                            var thumbImg = "http://www.reedyreels.com/wp-content/uploads/2015/08/ticket-icon-RR-300x252.png";
+                            //var thumbImg = "http://www.reedyreels.com/wp-content/uploads/2015/08/ticket-icon-RR-300x252.png";
 
                             //var thumbImg;
 
-                            if (result[i].Files != undefined) {
+                           // if (result[i].Files != undefined) {
 
-                                    thumbImg = result[0].Files[0].thumbnailUrl;
+                           //         thumbImg = result[0].Files[0].thumbnailUrl;
 
-                            }
+                           // }
 
     
                             var msg = new builder.Message(session)
@@ -925,7 +925,7 @@ bot.dialog('/UserResponseToTicket', [
                                         .subtitle(result[0].ObjectTxt)
                                         .text(TicketResponsesArray)
                                         .images([
-                                            builder.CardImage.create(session, thumbImg)
+                                            builder.CardImage.create(session, result[0].Files[0].thumbnailUrl)
                                         ])
                                         //.tap(builder.CardAction.openUrl(session, "https://en.wikipedia.org/wiki/Space_Needle"))
                                         .buttons([
