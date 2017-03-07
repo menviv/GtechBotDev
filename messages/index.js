@@ -874,9 +874,9 @@ bot.dialog('/UserResponseToTicket', [
 
                                     ResponseObjec.ObjectTxt = result[i].ObjectTxt;
 
-                                    TicketResponsesArray.push(ResponseObjec);
+                                    //TicketResponsesArray.push(ResponseObjec);
 
-                                    ReviewTicketWithResponses();
+                                    ReviewTicketWithResponses(ResponseObjec);
 
 
                                 } else {
@@ -889,9 +889,9 @@ bot.dialog('/UserResponseToTicket', [
 
                                     ResponseObjec.ObjectTxt = "I couldn'd find any responses for this ticket..";
 
-                                    TicketResponsesArray.push(ResponseObjec);
+                                    //TicketResponsesArray.push(ResponseObjec);
 
-                                    ReviewTicketWithResponses(TicketResponsesArray);
+                                    ReviewTicketWithResponses(ResponseObjec);
 
                                 }
 
@@ -905,7 +905,7 @@ bot.dialog('/UserResponseToTicket', [
                         }
 
 
-                        function ReviewTicketWithResponses(TicketResponsesArray) {
+                        function ReviewTicketWithResponses(ResponseObjec) {
                         
 
                             //var thumbImg = "http://www.reedyreels.com/wp-content/uploads/2015/08/ticket-icon-RR-300x252.png";
@@ -925,7 +925,7 @@ bot.dialog('/UserResponseToTicket', [
                                     new builder.ThumbnailCard(session)
                                         .title(result[0].CreatedTime + ' Ticket Card No: ' + result[0].ObjectNo + ' (' + result[0].Status + ')')
                                         .subtitle(result[0].ObjectTxt)
-                                        .text(TicketResponsesArray)
+                                        .text(ResponseObjec)
                                         .images([
                                             builder.CardImage.create(session, result[0].Files[0].thumbnailUrl)
                                         ])
