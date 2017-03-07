@@ -123,7 +123,8 @@ var nonHandledObjects
 var responses;
 var ticketsArray = [];
 var TicketNumber;
-var WhoIsThatBotResponseID
+var WhoIsThatBotResponseID;
+var TicketResponsesArray;
 
 
 
@@ -835,9 +836,9 @@ bot.dialog('/UserResponseToTicket', [
 
     function (session) {
 
-        session.sendTyping();
-
         nTickckNumber = parseInt(TicketNumber);
+
+        var sTicketNO = nTickckNumber.toString();
 
 
                 var cursor = collTickets.find({ "ObjectNo" : nTickckNumber});
@@ -852,6 +853,60 @@ bot.dialog('/UserResponseToTicket', [
 
                     if (nresultLen > 0 ) {
 
+                        function GetUserReponsesForTicketNO() {
+
+                            var cursor = TicketResponses.find({"TicketNO": sTicketNO});
+                            var result = [];
+                            cursor.each(function(err, doc) {
+                                if(err)
+                                    throw err;
+
+                                if (doc === null) {
+
+                                var nResponsLen = result.length;
+
+                                if (nResponsLen > 0 ) {
+
+                                    var ResponseObjec={};
+
+                                    ResponseObjec.CreatedTime = result[i].CreatedTime;
+
+                                    ResponseObjec.CreatedBy = result[i].CreatedBy;
+
+                                    ResponseObjec.ObjectTxt = result[i].ObjectTxt;
+
+                                    TicketResponsesArray.push(ResponseObjec);
+
+                                    ReviewTicketWithResponses(TicketResponsesArray)
+
+
+                                } else {
+
+                                    var ResponseObjec={};
+
+                                    ResponseObjec.CreatedTime = LogTimeStame;
+
+                                    ResponseObjec.CreatedBy = "supBot";
+
+                                    ResponseObjec.ObjectTxt = "I couldn'd find any responses for this ticket..";
+
+                                    TicketResponsesArray.push(ResponseObjec);
+
+                                    ReviewTicketWithResponses(TicketResponsesArray)
+
+                                }
+
+                                    return;
+                                }
+                                
+                                result.push(doc);
+                            });     
+
+
+                        }
+
+
+                        function ReviewTicketWithResponses(TicketResponsesArray) {
                         
 
                             var thumbImg = "http://www.reedyreels.com/wp-content/uploads/2015/08/ticket-icon-RR-300x252.png";
@@ -869,22 +924,22 @@ bot.dialog('/UserResponseToTicket', [
                                 .textFormat(builder.TextFormat.xml)
                                 .attachments([
                                     new builder.ThumbnailCard(session)
-                                        .title('Ticket Card No: ' + result[0].ObjectNo)
+                                        .title(result[0].CreatedTime + ' Ticket Card No: ' + result[0].ObjectNo + ' (' + result[0].Status + ')')
                                         .subtitle(result[0].ObjectTxt)
-                                        .text("Status: " + result[0].Status)
+                                        .text(TicketResponsesArray)
                                         .images([
                                             builder.CardImage.create(session, thumbImg)
                                         ])
                                         //.tap(builder.CardAction.openUrl(session, "https://en.wikipedia.org/wiki/Space_Needle"))
                                         .buttons([
-                                            builder.CardAction.dialogAction(session, "close", result[0].ObjectNo, "Close"),
-                                            builder.CardAction.dialogAction(session, "reopen", result[0].ObjectNo, "Re-Open"),
-                                            builder.CardAction.dialogAction(session, "review", result[0].ObjectNo, "Review")
+                                            builder.CardAction.dialogAction(session, "close", result[0].ObjectNo, "Close")
                                         ])
                                 ]);
                             session.send(msg);
 
-                        
+                            builder.Prompts.text(session, "Your comment will be: "); 
+
+                        }
 
 
 
@@ -905,26 +960,15 @@ bot.dialog('/UserResponseToTicket', [
                 });  
 
 
-    },
-    function (session, results) {
-
-        if (session.userData.adminAuth = 'True') {
-
-            var ticketNO = results.response;
-
-            session.send("The chosen ticket is: " + ticketNO);
-
-            session.userData.ticketNumberToHandle = ticketNO;  
-
-            builder.Prompts.text(session, "Your response will be:  ");   
-
-        }
-            
-    },    
+    },   
     function (session, results) {
 
         var TicketResponse = results.response;
-        var ticketNumberToHandle = session.userData.ticketNumberToHandle;
+
+        nTickckNumber = parseInt(TicketNumber);
+
+        var sTicketNO = nTickckNumber.toString();
+       
 
         ResponseID = new mongo.ObjectID(); 
 
@@ -934,7 +978,7 @@ bot.dialog('/UserResponseToTicket', [
                 '_id': ResponseID,
                 'CreatedBy':UserName,
                 'CreatedByEmail':UserEmail,
-                'TicketNo':ticketNumberToHandle,
+                'TicketNo':sTicketNO,
                 'ObjectFormat':'txt',
                 'ObjectTxt':TicketResponse,
                 'Status':'unread'
