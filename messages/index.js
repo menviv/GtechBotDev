@@ -836,12 +836,12 @@ bot.dialog('/UserResponseToTicket', [
 
     function (session) {
 
-        //nTickckNumber = parseInt(TicketNumber);
+        //nTicketNumber = parseInt(TicketNumber);
 
-        var sTicketNO = TickckNumber.toString();
+        var sTicketNO = TicketNumber.toString();
 
 
-                var cursor = collTickets.find({ "ObjectNo" : TickckNumber});
+                var cursor = collTickets.find({ "ObjectNo" : TicketNumber});
                 var result = [];
                 cursor.each(function(err, doc) {
                     if(err)
@@ -965,9 +965,9 @@ bot.dialog('/UserResponseToTicket', [
 
         var TicketResponse = results.response;
 
-        nTickckNumber = parseInt(TicketNumber);
+        nTicketNumber = parseInt(TicketNumber);
 
-        var sTicketNO = nTickckNumber.toString();
+        var sTicketNO = nTicketNumber.toString();
        
 
         ResponseID = new mongo.ObjectID(); 
