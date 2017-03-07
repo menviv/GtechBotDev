@@ -911,11 +911,13 @@ bot.dialog('/UserResponseToTicket', [
 
                                     ResponseObjec.ObjectTxt = "I couldn'd find any responses for this ticket..";
 
-                                    //TicketResponsesArray.push(ResponseObjec);
+                                    TicketResponsesArray.push(ResponseObjec);
 
-                                    session.send("ghghgjgjgjgjgjgjgjgjhgj" + ResponseObjec);
+                                    //session.send("ghghgjgjgjgjgjgjgjgjhgj" + ResponseObjec);
 
-                                    ReviewTicketWithResponses(ResponseObjec);
+                                    
+
+                                    ReviewTicketWithResponses(TicketResponsesArray);
 
                                 }
 
