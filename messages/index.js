@@ -893,7 +893,7 @@ bot.dialog('/UserResponseToTicket', [
 
                                     session.send(ResponseObjec);
 
-                                    ReviewTicketWithResponses(ResponseObjec);
+                                   // ReviewTicketWithResponses(ResponseObjec);
 
                                 }
 
