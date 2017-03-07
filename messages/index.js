@@ -2914,9 +2914,9 @@ bot.dialog('/WhoIsThatBot', [
 
         session.send("Well, I'm actually a software that is designed to automate the kinds of tasks you would usually do on your own, like making a dinner reservation, adding an appointment to your calendar or fetching and displaying information. ");
 
-        session.send("We often live inside messaging apps — or are at least designed to look that way — and it should feel like you’re chatting back and forth as you would with a human. ");
+        session.send("Me and my kind often live inside messaging apps — or are at least designed to look that way — and you should feel like you’re chatting back and forth as you would with a human. ");
 
-        session.send("This is the time where you acknowledge me about humanly I am.. ");
+        session.send("This is the time to feedback me about how humanly, beautiful and smart I am.. ");
 
         builder.Prompts.choice(session, "Right?", ["Hell you're not", "Damn Robot", "Like!", "I'd rather keep my thoughts to myself"]);
 
