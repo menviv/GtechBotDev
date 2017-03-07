@@ -334,7 +334,9 @@ bot.dialog('/validateUser', [
                             UserID = result[0]._id;
                             UserProfile = result[0].Profile;
 
-                            NextToSignIn();                            
+                            session.send("Good to have you back with me " + UserName); 
+
+                            session.endDialog();                          
 
                         } else {
 
@@ -352,22 +354,7 @@ bot.dialog('/validateUser', [
                     result.push(doc);
                 });
             
-        }
-
-
-
-
-        function NextToSignIn() {
-
-            if (session.userData.emailValidated == 'True') {
-
-               session.send("Good to have you back with me " + UserName); 
-
-               session.endDialog();
-
-            }
-
-        }                 
+        }               
 
 
     }
