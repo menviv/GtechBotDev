@@ -927,7 +927,7 @@ bot.dialog('/UserResponseToTicket', [
                                     new builder.ThumbnailCard(session)
                                         .title(result[0].CreatedTime + ' Ticket Card No: ' + result[0].ObjectNo + ' (' + result[0].Status + ')')
                                         .subtitle(result[0].ObjectTxt)
-                                        .text(ResponseObjec)
+                                        .text("ResponseObjec")
                                         .images([
                                             builder.CardImage.create(session, result[0].Files[0].thumbnailUrl)
                                         ])
