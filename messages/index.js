@@ -1429,7 +1429,7 @@ bot.dialog('/myOpenTickets', [
 
                                   //  ShowTickets(i);
 
-                                    function ShowTickets(i) {
+                                //    function ShowTickets(i) {
 
                                     
 
@@ -1460,7 +1460,7 @@ bot.dialog('/myOpenTickets', [
                                         ]);
                                     session.send(msg);
 
-                                    }
+                                 //   }
 
                                 }
 
