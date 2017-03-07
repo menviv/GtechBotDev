@@ -854,7 +854,7 @@ bot.dialog('/UserResponseToTicket', [
 
                         function GetUserReponsesForTicketNO() {
 
-                            var cursor = TicketResponses.find({"TicketNO": TicketNumber});
+                            var cursor = collTicketResponses.find({"TicketNO": TicketNumber});
                             var result = [];
                             cursor.each(function(err, doc) {
                                 if(err)
