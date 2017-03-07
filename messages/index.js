@@ -200,7 +200,7 @@ bot.dialog('/', [
 
         session.sendTyping();
 
-        session.send( "If you want to learn a bit about me and my past experience, you can use and type '\\whoisthatbot' at any time ");
+        session.send( "If you want to learn a bit about me and my past experience, you can use and type '/whoisthatbot' at any time ");
 
         session.beginDialog("/validateUser"); 
 
@@ -1049,25 +1049,25 @@ bot.dialog('helpDialog', function (session, args) {
 
         session.sendTyping();
 
-        session.send( "By the way,these are HOT KEYS / shortcuts to skip my over politeness, to review them just type '\help' ");
+        session.send( "By the way,these are HOT KEYS / shortcuts to skip my over politeness, to review them just type '/help' ");
 
-        session.send("use '\home' to go back to my office to instruct me on what you need me to do for you.");
+        session.send("use '/home' to go back to my office to instruct me on what you need me to do for you.");
 
-        session.send("use '\sticket' - to ask my help with allocating one or more tickets");
+        session.send("use '/sticket' - to ask my help with allocating one or more tickets");
 
-        session.send("use '\mtickets' - to ask me for a list of your tickets");
+        session.send("use '/mtickets' - to ask me for a list of your tickets");
 
-        session.send("use '\otickets' - to ask me for a list of your open tickets");
+        session.send("use '/otickets' - to ask me for a list of your open tickets");
 
-        session.send("use '\logout' - please try not to... this will be your way to say goodbye from me..");
+        session.send("use '/logout' - please try not to... this will be your way to say goodbye from me..");
 
-        session.send("use '\reset' - to ask me to reset your password");
+        session.send("use '/reset' - to ask me to reset your password");
 
         if (UserProfile == 'admin') {
 
-            session.send("use '\adminmode' - well...this is a restricted area and for authorized users only.");
+            session.send("use '/adminmode' - well...this is a restricted area and for authorized users only.");
 
-            session.send("use '\beadmin' - and I can promise to consider your request");
+            session.send("use '/beadmin' - and I can promise to consider your request");
 
         }
 
@@ -1117,7 +1117,7 @@ bot.dialog('whoisthatbotDialog', function (session, args) {
     onFindAction: function (context, callback) {
         // Recognize users utterance
         switch (context.message.text.toLowerCase()) {
-            case '\whoisthatbot':
+            case '/whoisthatbot':
                 callback(null, 1.0, { topic: 'whoisthatbot' });              
                 break;
             default:
@@ -1142,7 +1142,7 @@ bot.dialog('homeDialog', function (session, args) {
     onFindAction: function (context, callback) {
         // Recognize users utterance
         switch (context.message.text.toLowerCase()) {
-            case '\home':
+            case '/home':
                 callback(null, 1.0, { topic: 'home' });              
                 break;
             default:
@@ -1174,7 +1174,7 @@ bot.dialog('logoutDialog', function (session, args) {
     onFindAction: function (context, callback) {
         // Recognize users utterance
         switch (context.message.text.toLowerCase()) {
-            case '\logout':
+            case '/logout':
                 // You can trigger the action with callback(null, 1.0) but you're also
                 // allowed to return additional properties which will be passed along to
                 // the triggered dialog.
@@ -1198,7 +1198,7 @@ bot.dialog('myticketsDialog', function (session, args) {
     onFindAction: function (context, callback) {
         // Recognize users utterance
         switch (context.message.text.toLowerCase()) {
-            case '\mtickets':
+            case '/mtickets':
                 callback(null, 1.0, { topic: 'mytickets' });             
                 break;
             default:
@@ -1218,7 +1218,7 @@ bot.dialog('myOpenticketsDialog', function (session, args) {
     onFindAction: function (context, callback) {
         // Recognize users utterance
         switch (context.message.text.toLowerCase()) {
-            case '\otickets':
+            case '/otickets':
                 callback(null, 1.0, { topic: 'myopentickets' });                
                 break;
             default:
@@ -1248,7 +1248,7 @@ bot.dialog('resetDialog', function (session, args) {
     onFindAction: function (context, callback) {
         // Recognize users utterance
         switch (context.message.text.toLowerCase()) {
-            case '\reset':
+            case '/reset':
                 // You can trigger the action with callback(null, 1.0) but you're also
                 // allowed to return additional properties which will be passed along to
                 // the triggered dialog.
@@ -1831,7 +1831,7 @@ bot.dialog('adminModeDialog', function (session, args) {
     onFindAction: function (context, callback) {
         // Recognize users utterance
         switch (context.message.text.toLowerCase()) {
-            case '\adminmode':
+            case '/adminmode':
                 callback(null, 1.0, { topic: 'adminmode' });                 
                 break;
             default:
@@ -1853,7 +1853,7 @@ bot.dialog('beAdminModeDialog', function (session, args) {
     onFindAction: function (context, callback) {
         // Recognize users utterance
         switch (context.message.text.toLowerCase()) {
-            case '\beadmin':
+            case '/beadmin':
                 callback(null, 1.0, { topic: 'beadmin' });                 
                 break;
             default:
