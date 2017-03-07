@@ -1412,45 +1412,49 @@ bot.dialog('/myOpenTickets', [
             if (doc === null) {
 
                var nresultLen = result.length;
+               
+               var thumbImg = "http://www.reedyreels.com/wp-content/uploads/2015/08/ticket-icon-RR-300x252.png";
 
-               session.send("Your open tickets: " + nresultLen);
+                        
 
-                        for (var i=0; i<nresultLen; i++ ) {
+                                for (var i=0; i<nresultLen; i++ ) {
 
-                            var thumbImg = "http://www.reedyreels.com/wp-content/uploads/2015/08/ticket-icon-RR-300x252.png";
+                                    //var thumbImg;
 
-                            //var thumbImg;
+                                    ShowTickets(i);
 
-                            if (result[i].Files != undefined) {
+                                    function ShowTickets(i) {
 
-                                    thumbImg = result[i].Files[0].thumbnailUrl;
+                                    if (result[i].Files != undefined) {
 
-                            }
+                                            thumbImg = result[i].Files[0].thumbnailUrl;
 
-    
-                            var msg = new builder.Message(session)
-                                .textFormat(builder.TextFormat.xml)
-                                .attachments([
-                                    new builder.ThumbnailCard(session)
-                                        .title('Ticket Card No: ' + result[i].ObjectNo)
-                                        .subtitle(result[i].ObjectTxt)
-                                        .text("Status: " + result[i].Status)
-                                        .images([
-                                            builder.CardImage.create(session, thumbImg)
-                                        ])
-                                        //.tap(builder.CardAction.openUrl(session, "https://en.wikipedia.org/wiki/Space_Needle"))
-                                        .buttons([
-                                            builder.CardAction.dialogAction(session, "close", result[i].ObjectNo, "Close"),
-                                            builder.CardAction.dialogAction(session, "reopen", result[i].ObjectNo, "Re-Open"),
-                                            builder.CardAction.dialogAction(session, "review", result[i].ObjectNo, "Review"),
-                                            builder.CardAction.dialogAction(session, "comment", result[i].ObjectNo, "Comment")
-                                        ])
-                                ]);
-                            session.send(msg);
+                                    }
 
-                        }
+            
+                                    var msg = new builder.Message(session)
+                                        .textFormat(builder.TextFormat.xml)
+                                        .attachments([
+                                            new builder.ThumbnailCard(session)
+                                                .title('Ticket Card No: ' + result[i].ObjectNo)
+                                                .subtitle(result[i].ObjectTxt)
+                                                .text("Status: " + result[i].Status)
+                                                .images([
+                                                    builder.CardImage.create(session, thumbImg)
+                                                ])
+                                                //.tap(builder.CardAction.openUrl(session, "https://en.wikipedia.org/wiki/Space_Needle"))
+                                                .buttons([
+                                                    builder.CardAction.dialogAction(session, "close", result[i].ObjectNo, "Close"),
+                                                    builder.CardAction.dialogAction(session, "reopen", result[i].ObjectNo, "Re-Open"),
+                                                    builder.CardAction.dialogAction(session, "review", result[i].ObjectNo, "Review"),
+                                                    builder.CardAction.dialogAction(session, "comment", result[i].ObjectNo, "Comment")
+                                                ])
+                                        ]);
+                                    session.send(msg);
 
+                                    }
 
+                                }
 
                 return;
             }
