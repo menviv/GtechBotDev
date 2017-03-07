@@ -335,7 +335,7 @@ bot.dialog('/validateUser', [
 
                             session.userData.email = "";
 
-                            EmailNotFound();                           
+                            session.endDialog(); 
 
                         }  
                         
@@ -360,15 +360,7 @@ bot.dialog('/validateUser', [
 
             }
 
-        } 
-
-
-        function EmailNotFound() {
-
-
-                session.endDialog();
-
-        }                  
+        }                 
 
 
     }
