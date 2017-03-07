@@ -886,7 +886,7 @@ bot.dialog('/UserResponseToTicket', [
 
                                     session.send("text: " + ResponseObjec.ObjectTxt);
 
-                                    ReviewTicketWithResponses();
+                                    ReviewTicketWithResponses(ResponseObjec);
 
 
                                 } else {
@@ -917,7 +917,7 @@ bot.dialog('/UserResponseToTicket', [
                         }
 
 
-                        function ReviewTicketWithResponses() {
+                        function ReviewTicketWithResponses(ResponseObjec) {
                         
 
                             //var thumbImg = "http://www.reedyreels.com/wp-content/uploads/2015/08/ticket-icon-RR-300x252.png";
