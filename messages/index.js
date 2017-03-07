@@ -1162,9 +1162,9 @@ bot.dialog('logoutDialog', function (session, args) {
 
         session.userData.Authanticated = 'False';
 
-        session.userData.adminTokenReset == 'False';
+        session.userData.adminTokenReset = 'False';
 
-        session.userData.emailValidated == 'False'; 
+        session.userData.emailValidated = 'False'; 
 
         session.beginDialog("/");
 
