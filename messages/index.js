@@ -924,6 +924,8 @@ bot.dialog('/UserResponseToTicket', [
 
                            // }
 
+                           session.send("ghjgjh" + result[0].CreatedTime);
+
     
                             var msg = new builder.Message(session)
                                 .textFormat(builder.TextFormat.xml)
