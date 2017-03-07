@@ -888,9 +888,9 @@ bot.dialog('/UserResponseToTicket', [
 
                                                     ResponseObjec.Status = result[i].Status;
 
-                                                    if (i == nResponsLen) {
+                                                    TicketResponsesArray.push(ResponseObjec);
 
-                                                        TicketResponsesArray.push(ResponseObjec);
+                                                    if (i == nResponsLen) {
 
                                                         ReviewTicketWithResponses(TicketResponsesArray);
 
