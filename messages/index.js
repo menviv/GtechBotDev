@@ -1413,6 +1413,8 @@ bot.dialog('/myOpenTickets', [
 
                var nresultLen = result.length;
 
+               session.send("Your open tickets: " + nresultLen);
+
                         for (var i=0; i<nresultLen; i++ ) {
 
                             var thumbImg = "http://www.reedyreels.com/wp-content/uploads/2015/08/ticket-icon-RR-300x252.png";
