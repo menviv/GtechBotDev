@@ -468,7 +468,9 @@ bot.dialog('/signin', [
 
             if (session.userData.Authanticated == 'True') {
 
-               session.send("Good to have you back with me " + UserName + "! You have " + numberOfTickets + " open tickets and " + nonHandledObjects + " responses from me and you still didn't review."); 
+               session.send("So.. " + UserName + ", You have " + numberOfTickets + " open tickets and " + nonHandledObjects + " responses from me and you still didn't review."); 
+
+               session.send( "By the way,these are HOT KEYS / shortcuts to skip my over politeness, to review them just type '/help' ");
 
             } else {
 
@@ -1036,8 +1038,6 @@ bot.dialog('helpDialog', function (session, args) {
 
         session.sendTyping();
 
-        session.send( "By the way,these are HOT KEYS / shortcuts to skip my over politeness, to review them just type '/help' ");
-
         session.send("use '/home' to go back to my office to instruct me on what you need me to do for you.");
 
         session.send("use '/sticket' - to ask my help with allocating one or more tickets");
@@ -1073,7 +1073,7 @@ bot.dialog('helpDialog', function (session, args) {
     onFindAction: function (context, callback) {
         // Recognize users utterance
         switch (context.message.text.toLowerCase()) {
-            case '\help':
+            case '/help':
                 // You can trigger the action with callback(null, 1.0) but you're also
                 // allowed to return additional properties which will be passed along to
                 // the triggered dialog.
