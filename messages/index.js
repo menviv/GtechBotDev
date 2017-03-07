@@ -1428,17 +1428,6 @@ bot.dialog('/myOpenTickets', [
 
                         for (var i=0; i<nresultLen; i++ ) {
 
-                            var thumbImg = "http://www.reedyreels.com/wp-content/uploads/2015/08/ticket-icon-RR-300x252.png";
-
-                            //var thumbImg;
-
-                       //     if (result[i].Files != undefined) {
-
-                       //             thumbImg = result[i].Files[0].thumbnailUrl;
-
-                       //     }
-
-    
                             var msg = new builder.Message(session)
                                 .textFormat(builder.TextFormat.xml)
                                 .attachments([
@@ -1447,7 +1436,7 @@ bot.dialog('/myOpenTickets', [
                                         .subtitle(result[i].ObjectTxt)
                                         .text("Status: " + result[i].Status)
                                         .images([
-                                            builder.CardImage.create(session, thumbImg)
+                                            builder.CardImage.create(session, result[i].Files[0].thumbnailUrl)
                                         ])
                                         //.tap(builder.CardAction.openUrl(session, "https://en.wikipedia.org/wiki/Space_Needle"))
                                         .buttons([
