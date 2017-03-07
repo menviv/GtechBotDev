@@ -1402,9 +1402,9 @@ bot.dialog('/myOpenTickets', [
 
         session.send("Your open tickets: " + UserID);
 
-        var o_ID = new mongo.ObjectID(UserID);
+        var o_id = new mongo.ObjectID(UserID);
 
-        var cursor = collTickets.find({"UserID": UserID, "Status" : "new"});
+        var cursor = collTickets.find({"UserID": o_id, "Status" : "new"});
         var result = [];
         cursor.each(function(err, doc) {
             if(err)
