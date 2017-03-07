@@ -986,7 +986,7 @@ bot.dialog('/UserResponseToTicket', [
                                         .text(
 
   
-                                            result
+                                            "result"
 
                                         )
                                         .images([
