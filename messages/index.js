@@ -836,12 +836,12 @@ bot.dialog('/UserResponseToTicket', [
 
     function (session) {
 
-        nTickckNumber = parseInt(TicketNumber);
+        //nTickckNumber = parseInt(TicketNumber);
 
-        var sTicketNO = nTickckNumber.toString();
+        var sTicketNO = TickckNumber.toString();
 
 
-                var cursor = collTickets.find({ "ObjectNo" : nTickckNumber});
+                var cursor = collTickets.find({ "ObjectNo" : TickckNumber});
                 var result = [];
                 cursor.each(function(err, doc) {
                     if(err)
