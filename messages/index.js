@@ -28,6 +28,7 @@ var collUsers;
 var collAdminRequests;
 var collTicketResponses;
 var collLog;
+var collWhoIsThatBot;
 
 // Initialize connection once
 
@@ -44,6 +45,7 @@ mongo.MongoClient.connect(connString, function(err, database) {
   collAdminRequests = dbm.collection('AdminRequests');
   collTicketResponses = dbm.collection('TicketResponses');
   collLog = dbm.collection('SysLog');
+  collWhoIsThatBot = dbm.collection('WhoIsThatBot');
 
 
   // Initialize indexes for Free Search queries
@@ -109,6 +111,7 @@ var EmailError;
 var UserName;
 var UserOrg;
 var UserID;
+var UserProfile;
 var TicketID;
 var ResponseTimeFrameLabel;
 var OrgType;
@@ -120,6 +123,7 @@ var nonHandledObjects
 var responses;
 var ticketsArray = [];
 var TicketNumber;
+var WhoIsThatBotResponseID
 
 
 
@@ -192,13 +196,11 @@ bot.dialog('/', [
 
         session.sendTyping();
 
-        session.send("Welcome! my name is SupBot and I will do my best to assist you.");
+        session.send("Ok, I guess that you expected to speak with... hmm... a person, but trust me I'm much more efficient and qualified to help you.");
 
         session.sendTyping();
 
-        session.send( "Also, you are welcome to use my HOT KEYS to skip my over politeness, to review them just type '/help' ");
-
-        session.sendTyping();
+        session.send( "If you want to learn a bit about me and my past experience, you can use and type '\whoisthatbot' at any time ");
 
         session.beginDialog("/validateUser"); 
 
@@ -232,6 +234,10 @@ bot.dialog('/', [
             session.send("Thank you for your patiance");
 
             session.userData.emailValidated = '';
+
+        } else if (session.userData.whoIsThatBot == 'Done') {
+
+            session.beginDialog("/validateUser"); 
 
         }
 
@@ -326,6 +332,7 @@ bot.dialog('/validateUser', [
                             UserName = result[0].Name;
                             UserOrg = result[0].Org;
                             UserID = result[0]._id;
+                            UserProfile = result[0].Profile;
 
                             NextToSignIn();                            
 
@@ -1042,21 +1049,27 @@ bot.dialog('helpDialog', function (session, args) {
 
         session.sendTyping();
 
-        session.send("use '/home' to acknoledge me about your need for assitance");
+        session.send( "By the way,these are HOT KEYS / shortcuts to skip my over politeness, to review them just type '\help' ");
 
-        session.send("use '/sticket' - to ask to perform a simple search to allocate one or more tickets");
+        session.send("use '\home' to go back to my office to instruct me on what you need me to do for you.");
 
-        session.send("use '/mtickets' - to get a list of your tickets");
+        session.send("use '\sticket' - to ask my help with allocating one or more tickets");
 
-        session.send("use '/otickets' - to get a list of your open tickets");
+        session.send("use '\mtickets' - to ask me for a list of your tickets");
 
-        session.send("use '/logout' - to end our current discussion and start a new one");
+        session.send("use '\otickets' - to ask me for a list of your open tickets");
 
-        session.send("use '/reset' - to reset your password");
+        session.send("use '\logout' - please try not to... this will be your way to say goodbye from me..");
 
-        session.send("use '/adminmode' - well...this is a restricted area and for authorized users only.");
+        session.send("use '\reset' - to ask me to reset your password");
 
-        session.send("use '/beadmin' - and I can promise to consider your request");
+        if (UserProfile == 'admin') {
+
+            session.send("use '\adminmode' - well...this is a restricted area and for authorized users only.");
+
+            session.send("use '\beadmin' - and I can promise to consider your request");
+
+        }
 
         session.endDialog("Looking forward to your decision :)");
 
@@ -1073,11 +1086,39 @@ bot.dialog('helpDialog', function (session, args) {
     onFindAction: function (context, callback) {
         // Recognize users utterance
         switch (context.message.text.toLowerCase()) {
-            case '/help':
+            case '\help':
                 // You can trigger the action with callback(null, 1.0) but you're also
                 // allowed to return additional properties which will be passed along to
                 // the triggered dialog.
                 callback(null, 1.0, { topic: 'help' });
+                break;
+            default:
+                callback(null, 0.0);
+                break;
+        }
+    } 
+});
+
+
+
+
+
+bot.dialog('whoisthatbotDialog', function (session, args) {
+
+    session.endDialog();
+
+    if (args.topic == 'whoisthatbot') {
+
+        session.beginDialog("/WhoIsThatBot");
+
+    } 
+
+}).triggerAction({ 
+    onFindAction: function (context, callback) {
+        // Recognize users utterance
+        switch (context.message.text.toLowerCase()) {
+            case '\whoisthatbot':
+                callback(null, 1.0, { topic: 'whoisthatbot' });              
                 break;
             default:
                 callback(null, 0.0);
@@ -1101,7 +1142,7 @@ bot.dialog('homeDialog', function (session, args) {
     onFindAction: function (context, callback) {
         // Recognize users utterance
         switch (context.message.text.toLowerCase()) {
-            case '/home':
+            case '\home':
                 callback(null, 1.0, { topic: 'home' });              
                 break;
             default:
@@ -1133,7 +1174,7 @@ bot.dialog('logoutDialog', function (session, args) {
     onFindAction: function (context, callback) {
         // Recognize users utterance
         switch (context.message.text.toLowerCase()) {
-            case '/logout':
+            case '\logout':
                 // You can trigger the action with callback(null, 1.0) but you're also
                 // allowed to return additional properties which will be passed along to
                 // the triggered dialog.
@@ -1157,7 +1198,7 @@ bot.dialog('myticketsDialog', function (session, args) {
     onFindAction: function (context, callback) {
         // Recognize users utterance
         switch (context.message.text.toLowerCase()) {
-            case '/mtickets':
+            case '\mtickets':
                 callback(null, 1.0, { topic: 'mytickets' });             
                 break;
             default:
@@ -1177,7 +1218,7 @@ bot.dialog('myOpenticketsDialog', function (session, args) {
     onFindAction: function (context, callback) {
         // Recognize users utterance
         switch (context.message.text.toLowerCase()) {
-            case '/otickets':
+            case '\otickets':
                 callback(null, 1.0, { topic: 'myopentickets' });                
                 break;
             default:
@@ -1207,7 +1248,7 @@ bot.dialog('resetDialog', function (session, args) {
     onFindAction: function (context, callback) {
         // Recognize users utterance
         switch (context.message.text.toLowerCase()) {
-            case '/reset':
+            case '\reset':
                 // You can trigger the action with callback(null, 1.0) but you're also
                 // allowed to return additional properties which will be passed along to
                 // the triggered dialog.
@@ -1735,7 +1776,7 @@ bot.dialog('adminDialog', function (session, args) {
     onFindAction: function (context, callback) {
         // Recognize users utterance
         switch (context.message.text.toLowerCase()) {
-            case '/createorg':
+            case '\createorg':
                 // You can trigger the action with callback(null, 1.0) but you're also
                 // allowed to return additional properties which will be passed along to
                 // the triggered dialog.
@@ -1790,7 +1831,7 @@ bot.dialog('adminModeDialog', function (session, args) {
     onFindAction: function (context, callback) {
         // Recognize users utterance
         switch (context.message.text.toLowerCase()) {
-            case '/adminmode':
+            case '\adminmode':
                 callback(null, 1.0, { topic: 'adminmode' });                 
                 break;
             default:
@@ -1812,7 +1853,7 @@ bot.dialog('beAdminModeDialog', function (session, args) {
     onFindAction: function (context, callback) {
         // Recognize users utterance
         switch (context.message.text.toLowerCase()) {
-            case '/beadmin':
+            case '\beadmin':
                 callback(null, 1.0, { topic: 'beadmin' });                 
                 break;
             default:
@@ -1835,7 +1876,7 @@ bot.dialog('SearchTicketDialog', function (session, args) {
     onFindAction: function (context, callback) {
         // Recognize users utterance
         switch (context.message.text.toLowerCase()) {
-            case '/sticket':
+            case '\sticket':
                 callback(null, 1.0, { topic: 'sticket' });                 
                 break;
             default:
@@ -2864,7 +2905,73 @@ bot.dialog('/DefineNewOrgName', [
 
 
 
+bot.dialog('/WhoIsThatBot', [
+    function (session) {
+        
+        session.send("So you want to know a bit more about me? Let's start... ");
 
+        session.send("First I'll give you some background about my BotRace and then I will tell you more about me... and trust me... I have a lot to say :) ");
+
+        session.send("Well, I'm actually a software that is designed to automate the kinds of tasks you would usually do on your own, like making a dinner reservation, adding an appointment to your calendar or fetching and displaying information. ");
+
+        session.send("We often live inside messaging apps — or are at least designed to look that way — and it should feel like you’re chatting back and forth as you would with a human. ");
+
+        session.send("This is the time where you acknowledge me about humanly I am.. ");
+
+        builder.Prompts.choice(session, "Right?", ["Hell you're not", "Damn Robot", "Like!", "I'd rather keep my thoughts to myself"]);
+
+    },
+    function (session, results) {
+
+        var UserResponseWhoIsThatBot = results.response.entity;
+
+        WhoIsThatBotResponseID = new mongo.ObjectID(); 
+
+            var NewRecord = {
+                'CreatedTime': LogTimeStame,
+                '_id': WhoIsThatBotResponseID,
+                'Type':'First',
+                'Name':OrgName,
+                'Text':NewRecord
+            }    	
+            
+            collWhoIsThatBot.insert(NewRecord, function(err, result){
+
+            });
+
+
+            session.send("Noted... ");
+
+            session.send("So, I'm supBot and Gteam designed me to be there and assist you, our customers, with technical challenges, questions or even new requirment.");
+
+            session.send("I said that I'm much more efficiant that the human team, right?");
+
+            builder.Prompts.choice(session, "Would you like to know my qaulifications?", ["Yes", "No", "If I must..", "Leave me alone!"]);
+            
+    },
+    function (session, results) {
+
+        var UserResponseWhoIsThatBot = results.response.entity;
+
+        collTickets.update (
+        { "_id": WhoIsThatBotResponseID },
+        { $set: { 'Type': 'Second', 'Text2': UserResponseWhoIsThatBot, 'Text2CreatedDate':LogTimeStame } })
+
+
+
+
+            session.send("Again...noted... :) ");
+
+            session.send("Since this is the first version of me, I will notify you when the humans decide to finish my development.");
+
+            session.send("So... no... no... no... Goodbye....!!!");
+
+            session.userData.whoIsThatBot = 'Done';
+
+            session.endDialog();
+            
+    }
+]);
 
 
 /*
