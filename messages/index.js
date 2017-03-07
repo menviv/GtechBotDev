@@ -893,7 +893,7 @@ bot.dialog('/UserResponseToTicket', [
 
                                     session.send(ResponseObjec);
 
-                                   // ReviewTicketWithResponses(ResponseObjec);
+                                    ReviewTicketWithResponses();
 
                                 }
 
@@ -907,7 +907,7 @@ bot.dialog('/UserResponseToTicket', [
                         }
 
 
-                        function ReviewTicketWithResponses(ResponseObjec) {
+                        function ReviewTicketWithResponses() {
                         
 
                             //var thumbImg = "http://www.reedyreels.com/wp-content/uploads/2015/08/ticket-icon-RR-300x252.png";
