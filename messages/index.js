@@ -1395,9 +1395,83 @@ bot.dialog('/myTickets', [
 
 
 
-
-
 bot.dialog('/myOpenTickets', [
+    function (session) {
+
+        session.send("Your open tickets: ");
+
+        var o_id = new mongo.ObjectID(UserID);
+
+        var cursor = collTickets.find({"UserID": o_id, "Status" : "new"});        
+
+       // var cursor = collTickets.find({"Status" : "new"});
+        var result = [];
+        cursor.each(function(err, doc) {
+            if(err)
+                throw err;
+            if (doc === null) {
+
+               var nresultLen = result.length;
+
+                        for (var i=0; i<nresultLen; i++ ) {
+
+                            var thumbImg = "http://www.reedyreels.com/wp-content/uploads/2015/08/ticket-icon-RR-300x252.png";
+
+                            //var thumbImg;
+
+                            if (result[i].Files != undefined) {
+
+                                    thumbImg = result[i].Files[0].thumbnailUrl;
+
+                            }
+
+    
+                            var msg = new builder.Message(session)
+                                .textFormat(builder.TextFormat.xml)
+                                .attachments([
+                                    new builder.ThumbnailCard(session)
+                                        .title('Ticket Card No: ' + result[i].ObjectNo)
+                                        .subtitle(result[i].ObjectTxt)
+                                        .text("Status: " + result[i].Status)
+                                        .images([
+                                            builder.CardImage.create(session, thumbImg)
+                                        ])
+                                        //.tap(builder.CardAction.openUrl(session, "https://en.wikipedia.org/wiki/Space_Needle"))
+                                        .buttons([
+                                            builder.CardAction.dialogAction(session, "close", result[i].ObjectNo, "Close"),
+                                            builder.CardAction.dialogAction(session, "reopen", result[i].ObjectNo, "Re-Open"),
+                                            builder.CardAction.dialogAction(session, "review", result[i].ObjectNo, "Review"),
+                                            builder.CardAction.dialogAction(session, "comment", result[i].ObjectNo, "Comment")
+                                        ])
+                                ]);
+                            session.send(msg);
+
+                        }
+
+
+
+                return;
+            }
+            // do something with each doc, like push Email into a results array
+            result.push(doc);
+        });      
+
+    },
+    function (session, results) {
+
+            session.beginDialog("/location", { location: "path" });
+            
+    }
+]);
+
+
+
+
+
+
+
+
+bot.dialog('/myOpenTickets_vvvv', [
     function (session) {
 
         session.send("Your open tickets: " + UserID);
