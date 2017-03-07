@@ -1425,6 +1425,8 @@ bot.dialog('/myOpenTickets', [
 
                                     function ShowTickets(i) {
 
+                                    session.send("Your open tickets: " + result[i].ObjectNo);
+
                                     if (result[i].Files != undefined) {
 
                                             thumbImg = result[i].Files[0].thumbnailUrl;
