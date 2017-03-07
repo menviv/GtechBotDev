@@ -1907,7 +1907,7 @@ bot.dialog('SearchTicketDialog', function (session, args) {
     onFindAction: function (context, callback) {
         // Recognize users utterance
         switch (context.message.text.toLowerCase()) {
-            case '\sticket':
+            case '/sticket':
                 callback(null, 1.0, { topic: 'sticket' });                 
                 break;
             default:
