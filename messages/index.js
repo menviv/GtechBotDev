@@ -196,11 +196,11 @@ bot.dialog('/', [
 
         session.sendTyping();
 
-        session.send("Ok, I guess that you expected to speak with... hmm... a person, but trust me I'm much more efficient and qualified to help you.");
+        session.send("Hi there, I guess that you expected to speak with... hmm... a person, but trust me I'm much more efficient and qualified to help you.");
 
         session.sendTyping();
 
-        session.send( "If you want to learn a bit about me and my past experience, you can use and type '\whoisthatbot' at any time ");
+        session.send( "If you want to learn a bit about me and my past experience, you can use and type '\\whoisthatbot' at any time ");
 
         session.beginDialog("/validateUser"); 
 
