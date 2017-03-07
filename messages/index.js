@@ -888,11 +888,11 @@ bot.dialog('/UserResponseToTicket', [
 
                                                     ResponseObjec.Status = result[i].Status;
 
-                                                    TicketResponsesArray.push(ResponseObjec);
+                                                //    TicketResponsesArray.push(ResponseObjec);
 
                                                     if (i == nResponsLen) {
 
-                                                        ReviewTicketWithResponses(TicketResponsesArray);
+                                                        ReviewTicketWithResponses();
 
                                                     }
 
@@ -911,13 +911,13 @@ bot.dialog('/UserResponseToTicket', [
 
                                     ResponseObjec.ObjectTxt = "I couldn'd find any responses for this ticket..";
 
-                                    TicketResponsesArray.push(ResponseObjec);
+                                   // TicketResponsesArray.push(ResponseObjec);
 
                                     //session.send("ghghgjgjgjgjgjgjgjgjhgj" + ResponseObjec);
 
                                     
 
-                                    ReviewTicketWithResponses(TicketResponsesArray);
+                                    ReviewTicketWithResponses();
 
                                 }
 
@@ -931,7 +931,7 @@ bot.dialog('/UserResponseToTicket', [
                         }
 
 
-                        function ReviewTicketWithResponses(TicketResponsesArray) {
+                        function ReviewTicketWithResponses() {
                         
 
                             //var thumbImg = "http://www.reedyreels.com/wp-content/uploads/2015/08/ticket-icon-RR-300x252.png";
@@ -953,7 +953,37 @@ bot.dialog('/UserResponseToTicket', [
                                     new builder.ThumbnailCard(session)
                                         .title('Ticket Card No: ' + TicketNumber)
                                         .subtitle(TicketTitle)
-                                        .text(TicketResponsesArray)
+                                        .text(
+
+                                            var cursor = collTicketResponses.find({"TicketNO": TicketNumber});
+
+                                            var result = [];
+                                            cursor.each(function(err, doc) {
+                                                if(err)
+                                                    throw err;
+                                                if (doc === null) {
+
+                                                var nresultLen = result.length;
+
+                                                     for (var i=0; i<nresultLen; i++ ) {
+
+                                                         
+
+                                                         session.send("response: " + result[i].ObjectTxt);
+
+
+                                                     }
+
+
+
+                                                    return;
+                                                }
+                                                // do something with each doc, like push Email into a results array
+                                                result.push(doc);
+                                            }); 
+
+
+                                        )
                                         .images([
                                             builder.CardImage.create(session, thumbnailUrl)
                                         ])
