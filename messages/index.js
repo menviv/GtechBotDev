@@ -946,16 +946,8 @@ bot.dialog('/UserResponseToTicket', [
 
                          //  session.send("ghjgjh" + ResponseObjec.CreatedTime);
 
-    
-                            var msg = new builder.Message(session)
-                                .textFormat(builder.TextFormat.xml)
-                                .attachments([
-                                    new builder.ThumbnailCard(session)
-                                        .title('Ticket Card No: ' + TicketNumber)
-                                        .subtitle(TicketTitle)
-                                        .text(
 
-                                            var cursor = collTicketResponses.find({"TicketNO": TicketNumber});
+                                           var cursor = collTicketResponses.find({"TicketNO": TicketNumber});
 
                                             var result = [];
                                             cursor.each(function(err, doc) {
@@ -965,14 +957,14 @@ bot.dialog('/UserResponseToTicket', [
 
                                                 var nresultLen = result.length;
 
-                                                     for (var i=0; i<nresultLen; i++ ) {
+                                                //     for (var i=0; i<nresultLen; i++ ) {
 
                                                          
 
-                                                         session.send("response: " + result[i].ObjectTxt);
+                                                     //    session.send("response: " + result[i].ObjectTxt);
 
 
-                                                     }
+                                                 //    }
 
 
 
@@ -980,8 +972,21 @@ bot.dialog('/UserResponseToTicket', [
                                                 }
                                                 // do something with each doc, like push Email into a results array
                                                 result.push(doc);
-                                            }); 
+                                            });
 
+
+
+    
+                            var msg = new builder.Message(session)
+                                .textFormat(builder.TextFormat.xml)
+                                .attachments([
+                                    new builder.ThumbnailCard(session)
+                                        .title('Ticket Card No: ' + TicketNumber)
+                                        .subtitle(TicketTitle)
+                                        .text(
+
+  
+                                            result
 
                                         )
                                         .images([
