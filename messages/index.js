@@ -215,13 +215,11 @@ bot.dialog('/', [
 
             session.beginDialog("/signin"); 
 
-        } else if (session.userData.emailNotLegal == 'True') {
+        } else if (session.userData.emailValidated == 'NotLegal') {
 
             session.send("Let's try again?");
 
             session.beginDialog("/validateUser"); 
-
-            session.userData.emailNotLegal = '';
 
         } else if (session.userData.emailValidated == 'False') {
 
@@ -288,9 +286,7 @@ bot.dialog('/validateUser', [
 
             session.send("Are you sure that " + UserEmail  + " is a legal Email Address? I think not... "); 
 
-            session.userData.emailNotLegal = 'True';
-
-            session.userData.emailValidated = '';
+            session.userData.emailValidated = 'NotLegal';
 
             session.endDialog();            
 
