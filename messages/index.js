@@ -1400,7 +1400,7 @@ bot.dialog('/myTickets', [
 bot.dialog('/myOpenTickets', [
     function (session) {
 
-        session.send("Your open tickets: ");
+        session.send("Your open tickets: " + UserID);
 
         var o_ID = new mongo.ObjectID(UserID);
 
