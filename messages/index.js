@@ -876,7 +876,7 @@ bot.dialog('/UserResponseToTicket', [
 
                                     TicketResponsesArray.push(ResponseObjec);
 
-                                    ReviewTicketWithResponses(TicketResponsesArray)
+                                    ReviewTicketWithResponses();
 
 
                                 } else {
@@ -891,7 +891,7 @@ bot.dialog('/UserResponseToTicket', [
 
                                     TicketResponsesArray.push(ResponseObjec);
 
-                                    ReviewTicketWithResponses(TicketResponsesArray)
+                                    ReviewTicketWithResponses();
 
                                 }
 
@@ -905,7 +905,7 @@ bot.dialog('/UserResponseToTicket', [
                         }
 
 
-                        function ReviewTicketWithResponses(TicketResponsesArray) {
+                        function ReviewTicketWithResponses() {
                         
 
                             //var thumbImg = "http://www.reedyreels.com/wp-content/uploads/2015/08/ticket-icon-RR-300x252.png";
