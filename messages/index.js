@@ -1034,7 +1034,7 @@ bot.dialog('/getUserQuestion', [
 
 
 
-           builder.Prompts.attachment(session, 'Can you attach a screeshot that will help me better understanbd your request?');
+           builder.Prompts.attachment(session, "Can you attach a screeshot that will help me better understanbd your request? [attach an image or just type 'NO']");
             
         } 
     },
@@ -1063,9 +1063,22 @@ bot.dialog('/getUserQuestion', [
 
                 } else {
 
+                        var o_ID = new mongo.ObjectID(TicketID); 
+
+                        var thumbnailUrl = "http://www.reedyreels.com/wp-content/uploads/2015/08/ticket-icon-RR-300x252.png";
+
+                        var contentUrl = "http://www.reedyreels.com/wp-content/uploads/2015/08/ticket-icon-RR-300x252.png";                      
+
+                        collTickets.update (
+                        { "_id": o_ID },
+                        { $push: { Files: { $each: [  {thumbnailUrl: thumbnailUrl, contentUrl: contentUrl, "AttachmentUploadDate" :LogTimeStame, "FileType" : "ticketAttachment", "FileSource" : "Default" } ] } } }
+                        )                    
+
                     session.send("I guess not...");
 
                     session.beginDialog("/location", { location: "repath" });
+
+                    
             
         } 
     }
