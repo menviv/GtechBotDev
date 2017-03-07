@@ -876,7 +876,9 @@ bot.dialog('/UserResponseToTicket', [
 
                                     //TicketResponsesArray.push(ResponseObjec);
 
-                                    ReviewTicketWithResponses(ResponseObjec);
+                                    session.send("ghghgjgjgjgjgjgjgjgjhgj" + ResponseObjec);
+
+                                    ReviewTicketWithResponses();
 
 
                                 } else {
@@ -891,7 +893,7 @@ bot.dialog('/UserResponseToTicket', [
 
                                     //TicketResponsesArray.push(ResponseObjec);
 
-                                    session.send(ResponseObjec);
+                                    session.send("ghghgjgjgjgjgjgjgjgjhgj" + ResponseObjec);
 
                                     ReviewTicketWithResponses();
 
