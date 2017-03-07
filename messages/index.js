@@ -124,7 +124,7 @@ var responses;
 var ticketsArray = [];
 var TicketNumber;
 var WhoIsThatBotResponseID;
-var TicketResponsesArray;
+var TicketResponsesArray = [];
 
 
 
