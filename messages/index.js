@@ -850,6 +850,10 @@ bot.dialog('/UserResponseToTicket', [
 
                     if (nresultLen > 0 ) {
 
+                        var TicketTitle = result[0].ObjectTxt;
+
+                        var thumbnailUrl = result[0].Files[0].thumbnailUrl;
+
                         GetUserReponsesForTicketNO()
 
                         function GetUserReponsesForTicketNO() {
@@ -866,27 +870,35 @@ bot.dialog('/UserResponseToTicket', [
 
                                 if (nResponsLen > 0 ) {
 
-                                    var ResponseObjec={};
+                                    
 
-                                    ResponseObjec.CreatedTime = result[i].CreatedTime;
+                                        
 
-                                    ResponseObjec.CreatedBy = result[i].CreatedBy;
+                                            for (var i=0; i<nResponsLen; i++ ) {
 
-                                    ResponseObjec.ObjectTxt = result[i].ObjectTxt;
+                                                    var ResponseObjec={};
 
-                                    ResponseObjec.TicketNumber = TicketNumber;
+                                                    ResponseObjec.CreatedTime = result[i].CreatedTime;
 
-                                    ResponseObjec.Status = result[i].Status;
+                                                    ResponseObjec.CreatedBy = result[i].CreatedBy;
 
-                                    ResponseObjec.thumbnailUrl = result[0].Files[0].thumbnailUrl;
+                                                    ResponseObjec.ObjectTxt = result[i].ObjectTxt;
 
-                                    //TicketResponsesArray.push(ResponseObjec);
+                                                    ResponseObjec.TicketNumber = result[i].TicketNO;
 
-                                  
+                                                    ResponseObjec.Status = result[i].Status;
 
-                                    session.send("text: " + ResponseObjec.ObjectTxt);
+                                                    if (i == nResponsLen) {
 
-                                    ReviewTicketWithResponses(ResponseObjec);
+                                                        TicketResponsesArray.push(ResponseObjec);
+
+                                                        ReviewTicketWithResponses(TicketResponsesArray);
+
+                                                    }
+
+                                            }
+                                        
+                                        
 
 
                                 } else {
@@ -917,7 +929,7 @@ bot.dialog('/UserResponseToTicket', [
                         }
 
 
-                        function ReviewTicketWithResponses(ResponseObjec) {
+                        function ReviewTicketWithResponses(TicketResponsesArray) {
                         
 
                             //var thumbImg = "http://www.reedyreels.com/wp-content/uploads/2015/08/ticket-icon-RR-300x252.png";
@@ -937,15 +949,15 @@ bot.dialog('/UserResponseToTicket', [
                                 .textFormat(builder.TextFormat.xml)
                                 .attachments([
                                     new builder.ThumbnailCard(session)
-                                        .title(ResponseObjec.CreatedTime + ' Ticket Card No: ' + ResponseObjec.TicketNumber + ' (' + ResponseObjec.Status + ')')
-                                        .subtitle(ResponseObjec.ObjectTxt)
+                                        .title('Ticket Card No: ' + TicketNumber)
+                                        .subtitle(TicketTitle)
                                         .text("ResponseObjec")
                                         .images([
-                                            builder.CardImage.create(session, ResponseObjec.thumbnailUrl)
+                                            builder.CardImage.create(session, thumbnailUrl)
                                         ])
                                         //.tap(builder.CardAction.openUrl(session, "https://en.wikipedia.org/wiki/Space_Needle"))
                                         .buttons([
-                                            builder.CardAction.dialogAction(session, "close", ResponseObjec.TicketNumber, "Close")
+                                            builder.CardAction.dialogAction(session, "close", TicketNumber, "Close")
                                         ])
                                 ]);
                             session.send(msg);
