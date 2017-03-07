@@ -1419,11 +1419,15 @@ bot.dialog('/myOpenTickets', [
 
                                 for (var i=0; i<nresultLen; i++ ) {
 
+                                    session.send("You have tickets: " + nresultLen);
+
+                                    session.send("i tickets: " + i);
+
                                     session.send("Your open tickets: " + result[i].ObjectNo);
 
                                     //var thumbImg;
 
-                                    ShowTickets(i);
+                                  //  ShowTickets(i);
 
                                     function ShowTickets(i) {
 
