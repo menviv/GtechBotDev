@@ -874,6 +874,12 @@ bot.dialog('/UserResponseToTicket', [
 
                                     ResponseObjec.ObjectTxt = result[i].ObjectTxt;
 
+                                    ResponseObjec.TicketNumber = result[i].TicketNumber;
+
+                                    ResponseObjec.Status = result[i].Status;
+
+                                    ResponseObjec.thumbnailUrl = result[0].Files[0].thumbnailUrl;
+
                                     //TicketResponsesArray.push(ResponseObjec);
 
                                   
@@ -924,22 +930,22 @@ bot.dialog('/UserResponseToTicket', [
 
                            // }
 
-                           session.send("ghjgjh" + result[0].CreatedTime);
+                           session.send("ghjgjh" + ResponseObjec.CreatedTime);
 
     
                             var msg = new builder.Message(session)
                                 .textFormat(builder.TextFormat.xml)
                                 .attachments([
                                     new builder.ThumbnailCard(session)
-                                        .title(result[0].CreatedTime + ' Ticket Card No: ' + result[0].ObjectNo + ' (' + result[0].Status + ')')
-                                        .subtitle(result[0].ObjectTxt)
+                                        .title(ResponseObjec.CreatedTime + ' Ticket Card No: ' + ResponseObjec.TicketNumber + ' (' + ResponseObjec.Status + ')')
+                                        .subtitle(ResponseObjec.ObjectTxt)
                                         .text("ResponseObjec")
                                         .images([
-                                            builder.CardImage.create(session, result[0].Files[0].thumbnailUrl)
+                                            builder.CardImage.create(session, ResponseObjec.thumbnailUrl)
                                         ])
                                         //.tap(builder.CardAction.openUrl(session, "https://en.wikipedia.org/wiki/Space_Needle"))
                                         .buttons([
-                                            builder.CardAction.dialogAction(session, "close", result[0].ObjectNo, "Close")
+                                            builder.CardAction.dialogAction(session, "close", ResponseObjec.TicketNumber, "Close")
                                         ])
                                 ]);
                             session.send(msg);
