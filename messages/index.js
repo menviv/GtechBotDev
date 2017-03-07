@@ -836,12 +836,9 @@ bot.dialog('/UserResponseToTicket', [
 
     function (session) {
 
-        //nTicketNumber = parseInt(TicketNumber);
+        nTicketNumber = parseInt(TicketNumber);
 
-        var sTicketNO = TicketNumber.toString();
-
-
-                var cursor = collTickets.find({ "ObjectNo" : TicketNumber});
+                var cursor = collTickets.find({ "ObjectNo" : nTicketNumber});
                 var result = [];
                 cursor.each(function(err, doc) {
                     if(err)
@@ -855,7 +852,7 @@ bot.dialog('/UserResponseToTicket', [
 
                         function GetUserReponsesForTicketNO() {
 
-                            var cursor = TicketResponses.find({"TicketNO": sTicketNO});
+                            var cursor = TicketResponses.find({"TicketNO": TicketNumber});
                             var result = [];
                             cursor.each(function(err, doc) {
                                 if(err)
