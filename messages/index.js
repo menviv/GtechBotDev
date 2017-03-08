@@ -860,17 +860,21 @@ bot.dialog('/UserResponseToTicket', [
 
                                             for (var i=0; i<nResponsLen; i++ ) {
 
-                                                    
+                                                    var Objid = result[i]._id;
 
-                                                    ResponseObjec.CreatedTime = result[i].CreatedTime;
+                                                    ResponseObjec[Objid]=[];
 
-                                                    ResponseObjec.CreatedBy = result[i].CreatedBy;
+                                                    ResponseObjec[Objid].push({"CreatedTime": result[i].CreatedTime, "CreatedBy": result[i].CreatedBy,  "ObjectTxt": result[i].ObjectTxt });
 
-                                                    ResponseObjec.ObjectTxt = result[i].ObjectTxt;
+                                                   // ResponseObjec.CreatedTime = result[i].CreatedTime;
 
-                                                    ResponseObjec.TicketNumber = result[i].TicketNO;
+                                                  //  ResponseObjec.CreatedBy = result[i].CreatedBy;
 
-                                                    ResponseObjec.Status = result[i].Status;
+                                                 //   ResponseObjec.ObjectTxt = result[i].ObjectTxt;
+
+                                                  //  ResponseObjec.TicketNumber = result[i].TicketNO;
+
+                                                //    ResponseObjec.Status = result[i].Status;
 
                                                 //    TicketResponsesArray.push(ResponseObjec);
 
@@ -888,19 +892,11 @@ bot.dialog('/UserResponseToTicket', [
                                 } else {
 
 
-                                    ResponseObjec.CreatedTime = LogTimeStame;
+                                       ResponseObjec["NoReponse"]=[];
 
-                                    ResponseObjec.CreatedBy = "supBot";
+                                       ResponseObjec["NoReponse"].push({"CreatedTime": LogTimeStame, "CreatedBy": "supBot",  "ObjectTxt": "I couldn'd find any responses for this ticket.." });
 
-                                    ResponseObjec.ObjectTxt = "I couldn'd find any responses for this ticket..";
-
-                                   // TicketResponsesArray.push(ResponseObjec);
-
-                                    //session.send("ghghgjgjgjgjgjgjgjgjhgj" + ResponseObjec);
-
-                                    
-
-                                    ReviewTicketWithResponses();
+                                       ReviewTicketWithResponses();
 
                                 }
 
