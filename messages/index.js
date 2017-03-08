@@ -838,12 +838,14 @@ bot.dialog('/UserResponseToTicket', [
 
         var nTicketNumber = parseInt(TicketNumber);
 
+        var sTicketNO = nTicketNumber.toString();
+
         var ResponseObjec={};
         var ResponseLog = "\n\n";
 
 
 
-                            var cursor = collTicketResponses.find({"TicketNO": TicketNumber});
+                            var cursor = collTicketResponses.find({"TicketNO": sTicketNO});
                             var result = [];
                             cursor.each(function(err, doc) {
                                 if(err)
