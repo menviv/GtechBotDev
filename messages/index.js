@@ -247,7 +247,7 @@ bot.dialog('/', [
 
         if (session.userData.Authanticated == 'True') {
 
-            session.beginDialog("/location", { location: "path" });
+            session.beginDialog("/location", { location: "main" });
 
         } 
     },
@@ -638,7 +638,7 @@ bot.dialog('/ErrorAllocateEmail', [
 
 var paths = {
 
-    "home": { 
+    "main": { 
         description: "",
         commands: { "Pending Tickets": "mypendings", "My Tickets": "mytickets", "Search A Ticket": "searchtickets"  }
     },    
