@@ -869,7 +869,7 @@ bot.dialog('/UserResponseToTicket', [
 
                                                  //   ResponseObjec[Objid].push({"CreatedTime": result[i].CreatedTime, "CreatedBy": result[i].CreatedBy,  "ObjectTxt": result[i].ObjectTxt });
 
-                                                    ResponseLog = ResponseLog + result[i].CreatedTime + " | " + result[i].CreatedBy + "\n" + result[i].ObjectTxt + "\n\n";
+                                                    ResponseLog = ResponseLog + result[i].CreatedTime + " | " + result[i].CreatedBy + "\n\n\n" + result[i].ObjectTxt + "\n\n\n";
 
                                                    // ResponseObjec.CreatedTime = result[i].CreatedTime;
 
