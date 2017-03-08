@@ -909,6 +909,8 @@ bot.dialog('/UserResponseToTicket', [
 
 
                         function ReviewTicketWithResponses() {
+
+                            session.send(ResponseObjec);
  
     
                             var msg = new builder.Message(session)
