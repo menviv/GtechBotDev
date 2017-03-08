@@ -1445,7 +1445,7 @@ bot.dialog('/myTickets', [
 
         var o_id = new mongo.ObjectID(UserID);
 
-        var cursor = collTickets.find({"UserID": o_id});        
+        var cursor = collTickets.find({"UserID": o_id, 'Status': {'$ne': "Closed"}});        
 
         //var cursor = collTickets.find({"Status" : "new"});
         var result = [];
