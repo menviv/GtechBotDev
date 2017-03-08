@@ -1465,16 +1465,16 @@ bot.dialog('/myTickets', [
                                         .title('Ticket Card No: ' + result[i].ObjectNo + "["+ result[i].Status + "]")
                                         .subtitle(result[i].ObjectTxt)
                                         
-                                      //  .images([
-                                   //         builder.CardImage.create(session, result[i].Files[0].contentUrl)
-                                   //     ])
+                                        .images([
+                                            builder.CardImage.create(session, result[i].Files[0].contentUrl)
+                                        ])
                                         //.tap(builder.CardAction.openUrl(session, "https://en.wikipedia.org/wiki/Space_Needle"))
                                         .buttons([
                                             builder.CardAction.dialogAction(session, "close", result[i].ObjectNo, "Close"),
                                             builder.CardAction.dialogAction(session, "review", result[i].ObjectNo, "Enter"),
                                             builder.CardAction.dialogAction(session, "comment", result[i].ObjectNo, "Comment")
                                         ])
-                                        .text("LastVieweBy: " + result[i].LastVieweBy)
+                                        .text("LastVieweBy: " + result[i].LastVieweBy + " " + result[i].LastVieweTime)
                                         
                                 ]);
                             session.send(msg);
