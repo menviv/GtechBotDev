@@ -883,7 +883,9 @@ bot.dialog('/UserResponseToTicket', [
 
                                                 //    TicketResponsesArray.push(ResponseObjec);
 
-                                                    if (i == nResponsLen) {
+                                                var Diff = nResponsLen - i;
+
+                                                    if (Diff == 1) {
 
                                                         ReviewTicketWithResponses();
 
