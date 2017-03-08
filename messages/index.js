@@ -920,7 +920,7 @@ bot.dialog('/UserResponseToTicket', [
                                         .text(
 
   
-                                            ResponseObjec
+                                            "ResponseObjec"
 
                                         )
                                         //.tap(builder.CardAction.openUrl(session, "https://en.wikipedia.org/wiki/Space_Needle"))
