@@ -1358,7 +1358,7 @@ bot.dialog('/ResetPassword', [
 
 
 
-bot.dialog('/myTickets', [
+bot.dialog('/myTicketsvvv', [
     function (session) {
 
         session.send("Your tickets: ");
@@ -1433,6 +1433,73 @@ bot.dialog('/myTickets', [
 
     }
 ]);
+
+
+
+
+
+bot.dialog('/myTickets', [
+    function (session) {
+
+        session.send("Your tickets: ");
+
+        var o_id = new mongo.ObjectID(UserID);
+
+        var cursor = collTickets.find({"UserID": o_id});        
+
+        //var cursor = collTickets.find({"Status" : "new"});
+        var result = [];
+        cursor.each(function(err, doc) {
+            if(err)
+                throw err;
+            if (doc === null) {
+
+               var nresultLen = result.length;
+
+                        for (var i=0; i<nresultLen; i++ ) {
+
+                            var msg = new builder.Message(session)
+                                .textFormat(builder.TextFormat.xml)
+                                .attachments([
+                                    new builder.ThumbnailCard(session)
+                                        .title('Ticket Card No: ' + result[i].ObjectNo + "["+ result[i].Status + "]")
+                                        .subtitle(result[i].ObjectTxt)
+                                        .images([
+                                            builder.CardImage.create(session, result[i].Files[0].contentUrl)
+                                        ])
+                                        //.tap(builder.CardAction.openUrl(session, "https://en.wikipedia.org/wiki/Space_Needle"))
+                                        .buttons([
+                                            builder.CardAction.dialogAction(session, "close", result[i].ObjectNo, "Close"),
+                                            builder.CardAction.dialogAction(session, "review", result[i].ObjectNo, "Enter"),
+                                            builder.CardAction.dialogAction(session, "comment", result[i].ObjectNo, "Comment")
+                                        ])
+                                        .text("LastVieweBy: " + result[i].LastVieweBy)
+                                ]);
+                            session.send(msg);
+
+                        }
+
+
+
+                return;
+            }
+            // do something with each doc, like push Email into a results array
+            result.push(doc);
+        });      
+
+    },
+    function (session, results) {
+
+            session.beginDialog("/location", { location: "path" });
+            
+    }
+]);
+
+
+
+
+
+
 
 
 
