@@ -863,11 +863,11 @@ bot.dialog('/UserResponseToTicket', [
 
                                             for (var i=0; i<nResponsLen; i++ ) {
 
-                                                    var Objid = result[i]._id;
+                                                  //  var Objid = result[i]._id;
 
-                                                    ResponseObjec[Objid]=[];
+                                                  //  ResponseObjec[Objid]=[];
 
-                                                    ResponseObjec[Objid].push({"CreatedTime": result[i].CreatedTime, "CreatedBy": result[i].CreatedBy,  "ObjectTxt": result[i].ObjectTxt });
+                                                 //   ResponseObjec[Objid].push({"CreatedTime": result[i].CreatedTime, "CreatedBy": result[i].CreatedBy,  "ObjectTxt": result[i].ObjectTxt });
 
                                                     ResponseLog = ResponseLog + result[i].CreatedTime + " | " + result[i].CreatedBy + " | " + result[i].ObjectTxt + "\n";
 
