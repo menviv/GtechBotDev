@@ -1459,7 +1459,7 @@ bot.dialog('/myTicketsvvv', [
 bot.dialog('/myTickets', [
     function (session) {
 
-        session.send("************ Your tickets ************ ");
+        session.send("##########************ Your tickets ************##########");
 
         var o_id = new mongo.ObjectID(UserID);
 
@@ -1480,7 +1480,7 @@ bot.dialog('/myTickets', [
                                 .textFormat(builder.TextFormat.xml)
                                 .attachments([
                                     new builder.ThumbnailCard(session)
-                                        .title('Ticket Card No: ' + result[i].ObjectNo + "["+ result[i].Status + "]")
+                                        .title('Ticket Card No: ' + result[i].ObjectNo + "[ "+ result[i].Status + " ]")
                                         .subtitle(result[i].ObjectTxt)
                                         
                                         .images([
@@ -1523,7 +1523,7 @@ bot.dialog('/myTickets', [
 bot.dialog('/myPendingResTickets', [
     function (session) {
 
-        session.send("************ Pending Response Tickets ************ ");
+        session.send("##########************ Pending Response Tickets ************##########");
 
         var o_id = new mongo.ObjectID(UserID);
 
@@ -1544,7 +1544,7 @@ bot.dialog('/myPendingResTickets', [
                                 .textFormat(builder.TextFormat.xml)
                                 .attachments([
                                     new builder.ThumbnailCard(session)
-                                        .title('Ticket Card No: ' + result[i].ObjectNo + "["+ result[i].Status + "]")
+                                        .title('Ticket Card No: ' + result[i].ObjectNo + " [ "+ result[i].Status + " ]")
                                         .subtitle(result[i].ObjectTxt)
                                         
                                         .images([
@@ -1588,7 +1588,7 @@ bot.dialog('/myPendingResTickets', [
 bot.dialog('/myOpenTickets', [
     function (session) {
 
-        session.send("************ Pending Response Tickets ************ ");
+        session.send("##########************ Pending Response Tickets ************##########");
 
         var o_id = new mongo.ObjectID(UserID);
 
@@ -1609,7 +1609,7 @@ bot.dialog('/myOpenTickets', [
                                 .textFormat(builder.TextFormat.xml)
                                 .attachments([
                                     new builder.ThumbnailCard(session)
-                                        .title('Ticket Card No: ' + result[i].ObjectNo + "["+ result[i].Status + "]")
+                                        .title('Ticket Card No: ' + result[i].ObjectNo + " [ "+ result[i].Status + " ]")
                                         .subtitle(result[i].ObjectTxt)
                                         
                                         .images([
