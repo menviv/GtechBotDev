@@ -915,8 +915,9 @@ bot.dialog('/UserResponseToTicket', [
 
                         function ReviewTicketWithResponses() {
 
-                            session.send(ResponseLog);
- 
+                            session.send("\n\n");
+
+                            session.send("*********************************************");
     
                             var msg = new builder.Message(session)
                                 .textFormat(builder.TextFormat.xml)
@@ -924,18 +925,17 @@ bot.dialog('/UserResponseToTicket', [
                                     new builder.ThumbnailCard(session)
                                         .title('Ticket Card No: ' + TicketNumber)
                                         .subtitle("Ticket Log: ")
-                                        .text(
-
-  
-                                            "ResponseObjec"
-
-                                        )
+                                        .text(ResponseLog)
                                         //.tap(builder.CardAction.openUrl(session, "https://en.wikipedia.org/wiki/Space_Needle"))
                                         .buttons([
                                             builder.CardAction.dialogAction(session, "close", TicketNumber, "Close")
                                         ])
                                 ]);
                             session.send(msg);
+
+                            session.send("*********************************************");
+
+                            session.send("\n\n");
 
                             builder.Prompts.text(session, "Your comment will be: "); 
 
