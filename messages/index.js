@@ -869,7 +869,7 @@ bot.dialog('/UserResponseToTicket', [
 
                                                  //   ResponseObjec[Objid].push({"CreatedTime": result[i].CreatedTime, "CreatedBy": result[i].CreatedBy,  "ObjectTxt": result[i].ObjectTxt });
 
-                                                    ResponseLog = ResponseLog + result[i].CreatedTime + " | " + result[i].CreatedBy + " | " + result[i].ObjectTxt + "\n";
+                                                    ResponseLog = ResponseLog + result[i].CreatedTime + " | " + result[i].CreatedBy + "\n" + result[i].ObjectTxt + "\n\n";
 
                                                    // ResponseObjec.CreatedTime = result[i].CreatedTime;
 
@@ -921,7 +921,7 @@ bot.dialog('/UserResponseToTicket', [
 
                             session.send("\n\n");
 
-                            session.send("*********************************************");
+                            session.send("******************************************************************************************");
     
                             var msg = new builder.Message(session)
                                 .textFormat(builder.TextFormat.xml)
@@ -937,7 +937,7 @@ bot.dialog('/UserResponseToTicket', [
                                 ]);
                             session.send(msg);
 
-                            session.send("*********************************************");
+                            session.send("******************************************************************************************");
 
                             session.send("\n\n");
 
