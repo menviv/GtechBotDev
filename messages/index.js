@@ -1464,6 +1464,7 @@ bot.dialog('/myTickets', [
                                     new builder.ThumbnailCard(session)
                                         .title('Ticket Card No: ' + result[i].ObjectNo + "["+ result[i].Status + "]")
                                         .subtitle(result[i].ObjectTxt)
+                                        .text("LastVieweBy: " + result[i].LastVieweBy)
                                         .images([
                                             builder.CardImage.create(session, result[i].Files[0].contentUrl)
                                         ])
@@ -1473,7 +1474,7 @@ bot.dialog('/myTickets', [
                                             builder.CardAction.dialogAction(session, "review", result[i].ObjectNo, "Enter"),
                                             builder.CardAction.dialogAction(session, "comment", result[i].ObjectNo, "Comment")
                                         ])
-                                        .text("LastVieweBy: " + result[i].LastVieweBy)
+                                        
                                 ]);
                             session.send(msg);
 
