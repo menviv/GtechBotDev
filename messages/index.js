@@ -638,14 +638,19 @@ bot.dialog('/ErrorAllocateEmail', [
 
 var paths = {
 
+    "home": { 
+        description: "",
+        commands: { "Pending Tickets": "mypendings", "My Tickets": "mytickets", "Search A Ticket": "searchtickets"  }
+    },    
+
     "path": { 
         description: "So now, how can I help you?",
-        commands: { "You owe me an answer on a ticket": "feedback", "I have a question": "question", "I have a tech. problem": "support", "I have a request": "request", "I want to brainstorm with someone[soon]": "soon", "Call me back ASAP[soon]": "soon"  }
+        commands: { "I need to respond to a ticket": "feedback", "I have a question": "question", "I have a tech. problem": "support", "I have a request": "request", "I want to brainstorm with someone[soon]": "soon", "Call me back ASAP[soon]": "soon"  }
     },
 
     "repath": { 
         description: "Anything else I can I help you with?",
-        commands: { "You owe me an answer on a ticket": "feedback", "I have another question": "question", "I have another tech. problem": "support", "I have another request": "request", "I want to brainstorm with someone[soon]": "soon", "Call me back ASAP[soon]": "soon"  }
+        commands: { "I need to respond to a ticket": "feedback", "I have another question": "question", "I have another tech. problem": "support", "I have another request": "request", "I want to brainstorm with someone[soon]": "soon", "Call me back ASAP[soon]": "soon"  }
     }, 
 
     "reAdminAuth": { 
@@ -775,7 +780,7 @@ bot.dialog('/location', [
 
                     ResponseTimeFrameLabel = "by the next following day ";
 
-                }
+                }  
 
             session.userData.engagementReasonSevirityLevel = destination;
 
@@ -790,6 +795,14 @@ bot.dialog('/location', [
         } else if (destination == 'userAttachment') {
 
             session.beginDialog("/getUserAttachQuestion");
+
+        } else if (destination == 'searchtickets') {
+
+            session.beginDialog("/SearchTicket"); 
+
+        } else if (destination == 'mypendings') {
+
+            session.beginDialog("/myPendingResTickets"); 
 
         } else if (destination == 'mytickets') {
 
@@ -1053,9 +1066,14 @@ bot.dialog('/getUserQuestion', [
                 'ObjectType':session.userData.engagementReasonAppType,
                 'ObjectSevirityLevel':session.userData.engagementReasonSevirityLevel,
                 'ObjectFormat':'txt',
+                'LastVieweBy': UserName,
+                'LastViewedByProfile': UserProfile,
                 'ObjectTxt':results.response,
+                'LastVieweTime':LogTimeStame, 
                 'Status':'new'
-            }    	
+            } 
+
+                 	
             
             collTickets.insert(TicketRecord, function(err, result){
 
@@ -1441,7 +1459,7 @@ bot.dialog('/myTicketsvvv', [
 bot.dialog('/myTickets', [
     function (session) {
 
-        session.send("Your tickets: ");
+        session.send("************ Your tickets ************ ");
 
         var o_id = new mongo.ObjectID(UserID);
 
@@ -1474,7 +1492,71 @@ bot.dialog('/myTickets', [
                                             builder.CardAction.dialogAction(session, "review", result[i].ObjectNo, "Enter"),
                                             builder.CardAction.dialogAction(session, "comment", result[i].ObjectNo, "Comment")
                                         ])
-                                        .text("LastVieweBy: " + result[i].LastVieweBy + " " + result[i].LastVieweTime)
+                                        .text("LastVieweBy: " + result[i].LastVieweBy + " at: " + result[i].LastVieweTime)
+                                        
+                                ]);
+                            session.send(msg);
+
+                        }
+
+
+
+                return;
+            }
+            // do something with each doc, like push Email into a results array
+            result.push(doc);
+        });      
+
+    },
+    function (session, results) {
+
+            session.beginDialog("/location", { location: "path" });
+            
+    }
+]);
+
+
+
+
+
+
+bot.dialog('/myPendingResTickets', [
+    function (session) {
+
+        session.send("************ Pending Response Tickets ************ ");
+
+        var o_id = new mongo.ObjectID(UserID);
+
+        var cursor = collTickets.find({"UserID": o_id, 'Status': "Pending Customer Response"});        
+
+        //var cursor = collTickets.find({"Status" : "new"});
+        var result = [];
+        cursor.each(function(err, doc) {
+            if(err)
+                throw err;
+            if (doc === null) {
+
+               var nresultLen = result.length;
+
+                        for (var i=0; i<nresultLen; i++ ) {
+
+                            var msg = new builder.Message(session)
+                                .textFormat(builder.TextFormat.xml)
+                                .attachments([
+                                    new builder.ThumbnailCard(session)
+                                        .title('Ticket Card No: ' + result[i].ObjectNo + "["+ result[i].Status + "]")
+                                        .subtitle(result[i].ObjectTxt)
+                                        
+                                        .images([
+                                            builder.CardImage.create(session, result[i].Files[0].contentUrl)
+                                        ])
+                                        //.tap(builder.CardAction.openUrl(session, "https://en.wikipedia.org/wiki/Space_Needle"))
+                                        .buttons([
+                                            builder.CardAction.dialogAction(session, "close", result[i].ObjectNo, "Close"),
+                                            builder.CardAction.dialogAction(session, "review", result[i].ObjectNo, "Enter"),
+                                            builder.CardAction.dialogAction(session, "comment", result[i].ObjectNo, "Comment")
+                                        ])
+                                        .text("LastVieweBy: " + result[i].LastVieweBy + " at: " + result[i].LastVieweTime)
                                         
                                 ]);
                             session.send(msg);
@@ -1503,17 +1585,14 @@ bot.dialog('/myTickets', [
 
 
 
-
-
-
 bot.dialog('/myOpenTickets', [
     function (session) {
 
-        session.send("Your open tickets: ");
+        session.send("************ Pending Response Tickets ************ ");
 
         var o_id = new mongo.ObjectID(UserID);
 
-        var cursor = collTickets.find({"UserID": o_id, "Status" : "new"});        
+        var cursor = collTickets.find({"UserID": o_id, 'Status': "new"});        
 
         //var cursor = collTickets.find({"Status" : "new"});
         var result = [];
@@ -1532,6 +1611,7 @@ bot.dialog('/myOpenTickets', [
                                     new builder.ThumbnailCard(session)
                                         .title('Ticket Card No: ' + result[i].ObjectNo + "["+ result[i].Status + "]")
                                         .subtitle(result[i].ObjectTxt)
+                                        
                                         .images([
                                             builder.CardImage.create(session, result[i].Files[0].contentUrl)
                                         ])
@@ -1541,7 +1621,8 @@ bot.dialog('/myOpenTickets', [
                                             builder.CardAction.dialogAction(session, "review", result[i].ObjectNo, "Enter"),
                                             builder.CardAction.dialogAction(session, "comment", result[i].ObjectNo, "Comment")
                                         ])
-                                        .text("LastVieweBy: " + result[i].LastVieweBy)
+                                        .text("LastVieweBy: " + result[i].LastVieweBy + " at: " + result[i].LastVieweTime)
+                                        
                                 ]);
                             session.send(msg);
 
@@ -1564,92 +1645,6 @@ bot.dialog('/myOpenTickets', [
 ]);
 
 
-
-
-
-
-
-
-bot.dialog('/myOpenTickets_vvvv', [
-    function (session) {
-
-        session.send("Your open tickets: " + UserID);
-
-        var o_id = new mongo.ObjectID(UserID);
-
-        var cursor = collTickets.find({"UserID": o_id, "Status" : "new"});
-        var result = [];
-        cursor.each(function(err, doc) {
-            if(err)
-                throw err;
-            if (doc === null) {
-
-               var nresultLen = result.length;
-               
-               var thumbImg = "http://www.reedyreels.com/wp-content/uploads/2015/08/ticket-icon-RR-300x252.png";
-
-                        
-
-                                for (var i=0; i<nresultLen; i++ ) {
-
-                                    session.send("You have tickets: " + nresultLen);
-
-                                    session.send("i tickets: " + i);
-
-                                    session.send("Your open tickets: " + result[i].ObjectNo);
-
-                                    //var thumbImg;
-
-                                  //  ShowTickets(i);
-
-                                //    function ShowTickets(i) {
-
-                                    
-
-                                    if (result[i].Files != undefined) {
-
-                                            thumbImg = result[i].Files[0].thumbnailUrl;
-
-                                    }
-
-            
-                                    var msg = new builder.Message(session)
-                                        .textFormat(builder.TextFormat.xml)
-                                        .attachments([
-                                            new builder.ThumbnailCard(session)
-                                                .title('Ticket Card No: ' + result[i].ObjectNo)
-                                                .subtitle(result[i].ObjectTxt)
-                                                .text("Status: " + result[i].Status)
-                                                .images([
-                                                    builder.CardImage.create(session, thumbImg)
-                                                ])
-                                                //.tap(builder.CardAction.openUrl(session, "https://en.wikipedia.org/wiki/Space_Needle"))
-                                                .buttons([
-                                                    builder.CardAction.dialogAction(session, "close", result[i].ObjectNo, "Close"),
-                                                    builder.CardAction.dialogAction(session, "reopen", result[i].ObjectNo, "Re-Open"),
-                                                    builder.CardAction.dialogAction(session, "review", result[i].ObjectNo, "Review"),
-                                                    builder.CardAction.dialogAction(session, "comment", result[i].ObjectNo, "Comment")
-                                                ])
-                                        ]);
-                                    session.send(msg);
-
-                                 //   }
-
-                                }
-
-                return;
-            }
-            // do something with each doc, like push Email into a results array
-            result.push(doc);
-        });      
-
-    },
-    function (session, results) {
-
-            session.beginDialog("/location", { location: "path" });
-            
-    }
-]);
 
 
 
@@ -3060,7 +3055,7 @@ bot.dialog('/CreateNewUser', [
     },
     function (session, results) {
 
-        session.userData.newUserProfile = results.response;
+        session.userData.newUserProfile = results.response.entity;
 
         builder.Prompts.choice(session, "[Admin mode:] Org:", ["HIV.ORG.IL", "888", "Annonimouse", "Gtech"]);
             
