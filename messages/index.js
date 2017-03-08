@@ -947,7 +947,7 @@ bot.dialog('/UserResponseToTicket', [
 
         var TicketResponse = results.response;
 
-        nTicketNumber = parseInt(TicketNumber);
+        var nTicketNumber = parseInt(TicketNumber);
 
         var sTicketNO = nTicketNumber.toString();
        
