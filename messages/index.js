@@ -838,25 +838,9 @@ bot.dialog('/UserResponseToTicket', [
 
         var nTicketNumber = parseInt(TicketNumber);
 
-                var cursor = collTickets.find({ "ObjectNo" : nTicketNumber});
-                var result = [];
-                cursor.each(function(err, doc) {
-                    if(err)
-                        throw err;
+        var ResponseObjec={};
 
-                    if (doc === null) {
 
-                    var nresultLen = result.length;
-
-                    if (nresultLen > 0 ) {
-
-                        var TicketTitle = result[0].ObjectTxt;
-
-                        var thumbnailUrl = result[0].Files[0].thumbnailUrl;
-
-                        GetUserReponsesForTicketNO()
-
-                        function GetUserReponsesForTicketNO() {
 
                             var cursor = collTicketResponses.find({"TicketNO": TicketNumber});
                             var result = [];
@@ -876,7 +860,7 @@ bot.dialog('/UserResponseToTicket', [
 
                                             for (var i=0; i<nResponsLen; i++ ) {
 
-                                                    var ResponseObjec={};
+                                                    
 
                                                     ResponseObjec.CreatedTime = result[i].CreatedTime;
 
@@ -903,7 +887,6 @@ bot.dialog('/UserResponseToTicket', [
 
                                 } else {
 
-                                    var ResponseObjec={};
 
                                     ResponseObjec.CreatedTime = LogTimeStame;
 
@@ -925,73 +908,25 @@ bot.dialog('/UserResponseToTicket', [
                                 }
                                 
                                 result.push(doc);
-                            });     
+                            });   
 
-
-                        }
 
 
                         function ReviewTicketWithResponses() {
-                        
-
-                            //var thumbImg = "http://www.reedyreels.com/wp-content/uploads/2015/08/ticket-icon-RR-300x252.png";
-
-                            //var thumbImg;
-
-                           // if (result[i].Files != undefined) {
-
-                           //         thumbImg = result[0].Files[0].thumbnailUrl;
-
-                           // }
-
-                         //  session.send("ghjgjh" + ResponseObjec.CreatedTime);
-
-
-                                           var cursor = collTicketResponses.find({"TicketNO": TicketNumber});
-
-                                            var result = [];
-                                            cursor.each(function(err, doc) {
-                                                if(err)
-                                                    throw err;
-                                                if (doc === null) {
-
-                                                var nresultLen = result.length;
-
-                                                //     for (var i=0; i<nresultLen; i++ ) {
-
-                                                         
-
-                                                     //    session.send("response: " + result[i].ObjectTxt);
-
-
-                                                 //    }
-
-
-
-                                                    return;
-                                                }
-                                                // do something with each doc, like push Email into a results array
-                                                result.push(doc);
-                                            });
-
-
-
+ 
     
                             var msg = new builder.Message(session)
                                 .textFormat(builder.TextFormat.xml)
                                 .attachments([
                                     new builder.ThumbnailCard(session)
                                         .title('Ticket Card No: ' + TicketNumber)
-                                        .subtitle(TicketTitle)
+                                        .subtitle("Ticket Log: ")
                                         .text(
 
   
-                                            "result"
+                                            ResponseObjec
 
                                         )
-                                        .images([
-                                            builder.CardImage.create(session, thumbnailUrl)
-                                        ])
                                         //.tap(builder.CardAction.openUrl(session, "https://en.wikipedia.org/wiki/Space_Needle"))
                                         .buttons([
                                             builder.CardAction.dialogAction(session, "close", TicketNumber, "Close")
@@ -1001,25 +936,7 @@ bot.dialog('/UserResponseToTicket', [
 
                             builder.Prompts.text(session, "Your comment will be: "); 
 
-                        }
-
-
-
-                       // builder.Prompts.text(session, "Please provide me with the ticket number to load: "); 
-                        
-                    } else {
-
-                        session.send("I couldn't find your ticket...");
-
-                        session.beginDialog("/location", { location: "repath" });
-
-                    }
-
-                        return;
-                    }
-                    
-                    result.push(doc);
-                });  
+                        }     
 
 
     },   
