@@ -839,6 +839,7 @@ bot.dialog('/UserResponseToTicket', [
         var nTicketNumber = parseInt(TicketNumber);
 
         var ResponseObjec={};
+        var ResponseLog;
 
 
 
@@ -865,6 +866,8 @@ bot.dialog('/UserResponseToTicket', [
                                                     ResponseObjec[Objid]=[];
 
                                                     ResponseObjec[Objid].push({"CreatedTime": result[i].CreatedTime, "CreatedBy": result[i].CreatedBy,  "ObjectTxt": result[i].ObjectTxt });
+
+                                                    ResponseLog = ResponseLog + result[i].CreatedTime + " | " + result[i].CreatedBy + " | " + result[i].ObjectTxt;
 
                                                    // ResponseObjec.CreatedTime = result[i].CreatedTime;
 
@@ -896,6 +899,8 @@ bot.dialog('/UserResponseToTicket', [
 
                                        ResponseObjec["NoReponse"].push({"CreatedTime": LogTimeStame, "CreatedBy": "supBot",  "ObjectTxt": "I couldn'd find any responses for this ticket.." });
 
+                                       ResponseLog = ResponseLog + LogTimeStame + " | supBot | I couldn'd find any responses for this ticket..";
+
                                        ReviewTicketWithResponses();
 
                                 }
@@ -910,7 +915,7 @@ bot.dialog('/UserResponseToTicket', [
 
                         function ReviewTicketWithResponses() {
 
-                            session.send(ResponseObjec);
+                            session.send(ResponseLog);
  
     
                             var msg = new builder.Message(session)
