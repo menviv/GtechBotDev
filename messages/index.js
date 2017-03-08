@@ -841,7 +841,7 @@ bot.dialog('/UserResponseToTicket', [
         var sTicketNO = nTicketNumber.toString();
 
         var ResponseObjec={};
-        var ResponseLog = "\n\n";
+        var ResponseLog = "\n\n ****************************************************************************************** \n";
 
 
 
@@ -919,11 +919,11 @@ bot.dialog('/UserResponseToTicket', [
 
                         function ReviewTicketWithResponses() {
 
-                            session.send("\n\n");
+                          //  session.send("\n\n");
 
-                            session.send("******************************************************************************************");
+                         //   session.send("******************************************************************************************");
     
-                            var msg = new builder.Message(session)
+                        /*    var msg = new builder.Message(session)
                                 .textFormat(builder.TextFormat.xml)
                                 .attachments([
                                     new builder.ThumbnailCard(session)
@@ -935,9 +935,13 @@ bot.dialog('/UserResponseToTicket', [
                                             builder.CardAction.dialogAction(session, "close", TicketNumber, "Close")
                                         ])
                                 ]);
-                            session.send(msg);
 
-                            session.send("******************************************************************************************");
+                                session.send(msg);
+
+                        */
+                            session.send(ResponseLog);
+
+                         //   session.send("******************************************************************************************");
 
                             session.send("\n\n");
 
