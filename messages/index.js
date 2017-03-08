@@ -840,6 +840,25 @@ bot.dialog('/UserResponseToTicket', [
 
         var sTicketNO = nTicketNumber.toString();
 
+
+        if (UserProfile == 'admin') {
+
+            collTickets.update (
+            { "ObjectNo": nTicketNumber },
+            { $set: { 'LastViewedByProfile': UserProfile, 'LastVieweBy': UserName, 'LastVieweTime':LogTimeStame } }
+            ) 
+
+        } else {
+
+            collTickets.update (
+            { "ObjectNo": nTicketNumber },
+            { $set: { 'LastViewedByProfile': UserProfile, 'LastVieweBy': UserName, 'LastVieweTime':LogTimeStame } }
+            ) 
+
+        }     
+
+
+
         var ResponseObjec={};
         var ResponseLog = "\n\n ****************************************************************************************** \n";
 
@@ -956,6 +975,26 @@ bot.dialog('/UserResponseToTicket', [
         var TicketResponse = results.response;
 
         var nTicketNumber = parseInt(TicketNumber);
+
+
+        if (UserProfile == 'admin') {
+
+            collTickets.update (
+            { "ObjectNo": nTicketNumber },
+            { $set: { 'Status': "Pending Customer Response", 'LastResponseByProfile': UserProfile, 'LastResponseBy': UserName, 'LastResponseTime':LogTimeStame } }
+            ) 
+
+        } else {
+
+            collTickets.update (
+            { "ObjectNo": nTicketNumber },
+            { $set: { 'Status': "Pending Admin Response", 'LastResponseByProfile': UserProfile, 'LastResponseBy': UserName, 'LastResponseTime':LogTimeStame } }
+            ) 
+
+        }
+
+
+
 
         var sTicketNO = nTicketNumber.toString();
        
