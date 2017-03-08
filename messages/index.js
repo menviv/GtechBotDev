@@ -839,7 +839,7 @@ bot.dialog('/UserResponseToTicket', [
         var nTicketNumber = parseInt(TicketNumber);
 
         var ResponseObjec={};
-        var ResponseLog;
+        var ResponseLog = "\n\n";
 
 
 
@@ -867,7 +867,7 @@ bot.dialog('/UserResponseToTicket', [
 
                                                     ResponseObjec[Objid].push({"CreatedTime": result[i].CreatedTime, "CreatedBy": result[i].CreatedBy,  "ObjectTxt": result[i].ObjectTxt });
 
-                                                    ResponseLog = ResponseLog + result[i].CreatedTime + " | " + result[i].CreatedBy + " | " + result[i].ObjectTxt;
+                                                    ResponseLog = ResponseLog + result[i].CreatedTime + " | " + result[i].CreatedBy + " | " + result[i].ObjectTxt + "\n";
 
                                                    // ResponseObjec.CreatedTime = result[i].CreatedTime;
 
