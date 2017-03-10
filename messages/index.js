@@ -16,6 +16,7 @@ var azure = require('azure-storage');
 //var blobSvc = azure.createBlobService();
 var blobSvc = azure.createBlobServiceAnonymous('https://gtechdevdata.blob.core.windows.net/');
 
+
 // Initialize mongo integration must
 
 var mongo = require('mongodb');
@@ -1092,7 +1093,9 @@ bot.dialog('/getUserQuestion', [
 
                 var o_ID = new mongo.ObjectID(TicketID); 
 
-                
+                var thumbnailUrl = results.response[0].thumbnailUrl;
+
+                var contentUrl = results.response[0].contentUrl;                
 
 
 blobSvc.createContainerIfNotExists('images', {publicAccessLevel : 'blob'}, function(error, result, response){
@@ -1103,12 +1106,16 @@ blobSvc.createContainerIfNotExists('images', {publicAccessLevel : 'blob'}, funct
     }
 });
 
+blobSvc.createBlockBlobFromLocalFile('images', 'contentUrl', contentUrl, function(error, result, response){
+  if(!error){
+    // file uploaded
+  }
+});
 
 
 
-                var thumbnailUrl = results.response[0].thumbnailUrl;
 
-                var contentUrl = results.response[0].contentUrl;
+
 
                         collTickets.update (
                         { "_id": o_ID },
