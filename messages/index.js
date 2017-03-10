@@ -6,7 +6,7 @@ https://docs.botframework.com/en-us/node/builder/overview/
 "use strict";
 var builder = require("botbuilder");
 var botbuilder_azure = require("botbuilder-azure");
-var azure = require('azure-storage');
+//var azure = require('azure-storage');
 var moment = require('moment');
 var fs = require('fs');
 var DateFormat = "DD-MM-YYYY HH:mm:ss";
