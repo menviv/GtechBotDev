@@ -14,7 +14,7 @@ var LogTimeStame = moment().format(DateFormat);
 var nodemailer = require('nodemailer');
 var azure = require('azure-storage');
 //var blobSvc = azure.createBlobService();
-var blobSvc = azure.createBlobServiceAnonymous('https://gtechdevdata.blob.core.windows.net/images');
+var blobSvc = azure.createBlobServiceAnonymous('https://gtechdevdata.blob.core.windows.net/');
 
 // Initialize mongo integration must
 
