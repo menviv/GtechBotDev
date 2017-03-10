@@ -1120,13 +1120,8 @@ blobService.createBlockBlobFromLocalFile('mycontainer', 'taskblob', 'task1-uploa
 
 
 blobSvc.createBlockBlobFromLocalFile('images', 'contentUrl', contentUrl, function(error, result, response){
-  if(!error){
+  if (!error) {
     // file uploaded
-    session.send("file uploaded");
-  } else {
-
-    session.send(error);
-
   }
 });
 
