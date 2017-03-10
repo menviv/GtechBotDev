@@ -1112,6 +1112,10 @@ blobSvc.createBlockBlobFromLocalFile('images', 'contentUrl', contentUrl, functio
   if(!error){
     // file uploaded
     session.send("file uploaded");
+  } else {
+
+    session.send(error);
+
   }
 });
 
