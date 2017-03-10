@@ -1097,7 +1097,7 @@ bot.dialog('/getUserQuestion', [
 
                 var contentUrl = results.response[0].contentUrl;                
 
-
+/*
 blobSvc.createContainerIfNotExists('images', {publicAccessLevel : 'blob'}, function(error, result, response){
     if(!error){
       // Container exists and allows
@@ -1105,10 +1105,13 @@ blobSvc.createContainerIfNotExists('images', {publicAccessLevel : 'blob'}, funct
       // content and metadata within this container
     }
 });
+*/
+
 
 blobSvc.createBlockBlobFromLocalFile('images', 'contentUrl', contentUrl, function(error, result, response){
   if(!error){
     // file uploaded
+    session.send("file uploaded");
   }
 });
 
