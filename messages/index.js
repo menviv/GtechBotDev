@@ -12,9 +12,12 @@ var fs = require('fs');
 var DateFormat = "DD-MM-YYYY HH:mm:ss";
 var LogTimeStame = moment().format(DateFormat); 
 var nodemailer = require('nodemailer');
-var azure = require('azure-storage');
+//var azure = require('azure-storage');
 //var blobSvc = azure.createBlobService();
-var blobSvc = azure.createBlobServiceAnonymous('https://gtechdevdata.blob.core.windows.net/');
+//var blobSvc = azure.createBlobServiceAnonymous('https://gtechdevdata.blob.core.windows.net/');
+
+var azure = require('azure-storage');
+var blobService = azure.createBlobService();
 
 
 // Initialize mongo integration must
@@ -1105,6 +1108,14 @@ blobSvc.createContainerIfNotExists('images', {publicAccessLevel : 'blob'}, funct
       // content and metadata within this container
     }
 });
+
+
+blobService.createBlockBlobFromLocalFile('mycontainer', 'taskblob', 'task1-upload.txt', function(error, result, response) {
+  if (!error) {
+    // file uploaded
+  }
+});
+
 */
 
 
