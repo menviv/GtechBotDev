@@ -1134,9 +1134,9 @@ blobSvc.createBlockBlobFromLocalFile('imagescontainer', 'contentUrl', attachment
 
                         collTickets.update (
                         { "_id": o_ID },
-                        { $set: { 'attachement': msg, 'AttachmentUploadDate':LogTimeStame }},
+                        { $set: { 'attachement': msg, 'AttachmentUploadDate':LogTimeStame }}
                        // { $push: { Files: { $each: [  results.response  ] } } }
-                        { $push: { Files: { $each: [  {thumbnailUrl: thumbnailUrl, contentUrl: contentUrl, "AttachmentUploadDate" :LogTimeStame, "FileType" : "ticketAttachment" } ] } } }
+                      //  { $push: { Files: { $each: [  {thumbnailUrl: thumbnailUrl, contentUrl: contentUrl, "AttachmentUploadDate" :LogTimeStame, "FileType" : "ticketAttachment" } ] } } }
                         )
 
                          session.send("Nice one! Thanks...");
