@@ -1099,7 +1099,7 @@ bot.dialog('/getUserQuestion', [
         results.response.forEach(function (attachment) {
             msg.addAttachment(attachment);    
         });
-     //   session.send(msg);
+        session.send(msg);
 
 
                 var o_ID = new mongo.ObjectID(TicketID); 
@@ -1121,7 +1121,7 @@ blobSvc.createContainerIfNotExists('imagescontainer', {publicAccessLevel : 'blob
 
 
 
-blobSvc.createBlockBlobFromLocalFile('imagescontainer', 'contentUrl', msg, function(error, result, response){
+blobSvc.createBlockBlobFromLocalFile('imagescontainer', 'contentUrl', attachment.name, function(error, result, response){
   if (!error) {
     // file uploaded
   }
