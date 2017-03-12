@@ -1092,12 +1092,28 @@ bot.dialog('/getUserQuestion', [
 
          if (results.response) {
 
+
+blobSvc.createContainerIfNotExists('imagescontainer', {publicAccessLevel : 'blob'}, function(error, result, response){
+    if(!error){
+      // Container exists and allows
+      // anonymous read access to blob
+      // content and metadata within this container
+    }
+});             
+
                 session.send('File received.');
 
         var msg = new builder.Message(session)
             .ntext("I got %d attachment.", "I got %d attachments.", results.response.length);
         results.response.forEach(function (attachment) {
-            msg.addAttachment(attachment);    
+            msg.addAttachment(attachment);
+
+            blobSvc.createBlockBlobFromLocalFile('imagescontainer', 'contentUrl', attachment, function(error, result, response){
+            if (!error) {
+                // file uploaded
+            }
+            });            
+
         });
         session.send(msg);
 
@@ -1108,35 +1124,25 @@ bot.dialog('/getUserQuestion', [
 
                 var contentUrl = results.response[0].contentUrl;                
 
-/*
-blobSvc.createContainerIfNotExists('imagescontainer', {publicAccessLevel : 'blob'}, function(error, result, response){
-    if(!error){
-      // Container exists and allows
-      // anonymous read access to blob
-      // content and metadata within this container
-    }
-});
 
 
 
 
 
-blobSvc.createBlockBlobFromLocalFile('imagescontainer', 'contentUrl', attachment.name, function(error, result, response){
-  if (!error) {
-    // file uploaded
-  }
-});
 
 
-*/
+
+
+
+
 
 
 
                         collTickets.update (
                         { "_id": o_ID },
-                        { $set: { 'attachement': msg, 'AttachmentUploadDate':LogTimeStame }}
+                       // { $set: { 'attachement': msg, 'AttachmentUploadDate':LogTimeStame }}
                        // { $push: { Files: { $each: [  results.response  ] } } }
-                      //  { $push: { Files: { $each: [  {thumbnailUrl: thumbnailUrl, contentUrl: contentUrl, "AttachmentUploadDate" :LogTimeStame, "FileType" : "ticketAttachment" } ] } } }
+                        { $push: { Files: { $each: [  {thumbnailUrl: thumbnailUrl, contentUrl: contentUrl, "AttachmentUploadDate" :LogTimeStame, "FileType" : "ticketAttachment" } ] } } }
                         )
 
                          session.send("Nice one! Thanks...");
