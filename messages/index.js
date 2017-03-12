@@ -1099,7 +1099,7 @@ bot.dialog('/getUserQuestion', [
         results.response.forEach(function (attachment) {
             msg.addAttachment(attachment);    
         });
-        session.send(msg);
+     //   session.send(msg);
 
 
                 var o_ID = new mongo.ObjectID(TicketID); 
@@ -1109,7 +1109,7 @@ bot.dialog('/getUserQuestion', [
                 var contentUrl = results.response[0].contentUrl;                
 
 
-blobSvc.createContainerIfNotExists('images', {publicAccessLevel : 'blob'}, function(error, result, response){
+blobSvc.createContainerIfNotExists('imagescontainer', {publicAccessLevel : 'blob'}, function(error, result, response){
     if(!error){
       // Container exists and allows
       // anonymous read access to blob
@@ -1121,7 +1121,7 @@ blobSvc.createContainerIfNotExists('images', {publicAccessLevel : 'blob'}, funct
 
 
 
-blobSvc.createBlockBlobFromLocalFile('images', 'contentUrl', msg, function(error, result, response){
+blobSvc.createBlockBlobFromLocalFile('imagescontainer', 'contentUrl', msg, function(error, result, response){
   if (!error) {
     // file uploaded
   }
