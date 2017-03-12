@@ -1111,18 +1111,18 @@ var FileName;
 
         results.response.forEach(function (attachment) {
             msg.addAttachment(attachment); 
-          //  FileName = attachment.name;          
+            FileName = attachment.name;          
 
         });
 
        // var attachment = msg.attachments[0];
        // var FileName = attachment.name;
         session.send(msg);
-      //  session.send(FileName);
+        session.send(FileName);
 
 
 
-             blobService.createBlockBlobFromLocalFile('imagescontainer', 'attachment', msg, function(error, result, response){
+             blobService.createBlockBlobFromLocalFile('imagescontainer', 'attachment', FileName, function(error, result, response){
             if (!error) {
                 // file uploaded
             }
