@@ -1103,26 +1103,31 @@ blobSvc.createContainerIfNotExists('imagescontainer', {publicAccessLevel : 'blob
 
                 session.send('File received.');
 
+var FileName;
 
         var msg = new builder.Message(session)
             .ntext("I got %d attachment.", "I got %d attachments.", results.response.length);
 
         results.response.forEach(function (attachment) {
-            msg.addAttachment(attachment);           
+            msg.addAttachment(attachment); 
+            FileName = attachment.name;          
 
         });
 
-        var attachment = msg.attachments[0];
-        var FileName = attachment.name;
+       // var attachment = msg.attachments[0];
+       // var FileName = attachment.name;
+        session.send(msg);
         session.send(FileName);
 
-
+/*
 
              blobSvc.createBlockBlobFromLocalFile('imagescontainer', 'attachment', FileName, function(error, result, response){
             if (!error) {
                 // file uploaded
             }
-            });        
+        }); 
+
+        */       
 
 
                 var o_ID = new mongo.ObjectID(TicketID); 
