@@ -1120,15 +1120,15 @@ var FileName;
         session.send(msg);
       //  session.send(FileName);
 
-/*
 
-             blobService.createBlockBlobFromLocalFile('imagescontainer', 'attachment', FileName, function(error, result, response){
+
+             blobService.createBlockBlobFromLocalFile('imagescontainer', 'attachment', msg, function(error, result, response){
             if (!error) {
                 // file uploaded
             }
         }); 
 
-        */       
+               
 
 
                 var o_ID = new mongo.ObjectID(TicketID); 
