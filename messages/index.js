@@ -1110,14 +1110,14 @@ var FileName;
 
         results.response.forEach(function (attachment) {
             msg.addAttachment(attachment); 
-            FileName = attachment.name;          
+          //  FileName = attachment.name;          
 
         });
 
        // var attachment = msg.attachments[0];
        // var FileName = attachment.name;
         session.send(msg);
-        session.send(FileName);
+      //  session.send(FileName);
 
 /*
 
