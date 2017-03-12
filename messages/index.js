@@ -1099,7 +1099,7 @@ bot.dialog('/getUserQuestion', [
         results.response.forEach(function (attachment) {
             msg.addAttachment(attachment);    
         });
-        session.send(msg);
+        session.send(attachment.name);
 
 
                 var o_ID = new mongo.ObjectID(TicketID); 
