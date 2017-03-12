@@ -1092,16 +1092,16 @@ bot.dialog('/getUserQuestion', [
 
          if (results.response) {
 
-/*
 
-blobSvc.createContainerIfNotExists('imagescontainer', {publicAccessLevel : 'blob'}, function(error, result, response){
+
+blobService.createContainerIfNotExists('imagescontainer', {publicAccessLevel : 'blob'}, function(error, result, response){
     if(!error){
       // Container exists and allows
       // anonymous read access to blob
       // content and metadata within this container
     }
 });             
-*/
+
                 session.send('File received.');
 
 var FileName;
@@ -1122,7 +1122,7 @@ var FileName;
 
 /*
 
-             blobSvc.createBlockBlobFromLocalFile('imagescontainer', 'attachment', FileName, function(error, result, response){
+             blobService.createBlockBlobFromLocalFile('imagescontainer', 'attachment', FileName, function(error, result, response){
             if (!error) {
                 // file uploaded
             }
