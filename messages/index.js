@@ -1103,18 +1103,20 @@ blobSvc.createContainerIfNotExists('imagescontainer', {publicAccessLevel : 'blob
 
                 session.send('File received.');
 
+        var FileName;        
+
         var msg = new builder.Message(session)
             .ntext("I got %d attachment.", "I got %d attachments.", results.response.length);
 
             var attachment = msg.attachments[0];
 
-            var FileName = attachment.name;
+            FileName = attachment.name;
 
         results.response.forEach(function (attachment) {
             msg.addAttachment(attachment);           
 
         });
-        session.send(msg);
+        session.send(FileName);
 
 
 
