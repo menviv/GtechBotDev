@@ -1099,7 +1099,7 @@ bot.dialog('/getUserQuestion', [
         results.response.forEach(function (attachment) {
             msg.addAttachment(attachment);    
         });
-        session.send(attachment.name);
+        session.send(msg);
 
 
                 var o_ID = new mongo.ObjectID(TicketID); 
@@ -1108,7 +1108,7 @@ bot.dialog('/getUserQuestion', [
 
                 var contentUrl = results.response[0].contentUrl;                
 
-
+/*
 blobSvc.createContainerIfNotExists('imagescontainer', {publicAccessLevel : 'blob'}, function(error, result, response){
     if(!error){
       // Container exists and allows
@@ -1128,13 +1128,13 @@ blobSvc.createBlockBlobFromLocalFile('imagescontainer', 'contentUrl', attachment
 });
 
 
-
+*/
 
 
 
                         collTickets.update (
                         { "_id": o_ID },
-                       // { $set: { 'attachement': results.response, 'AttachmentUploadDate':LogTimeStame }}
+                        { $set: { 'attachement': msg, 'AttachmentUploadDate':LogTimeStame }}
                        // { $push: { Files: { $each: [  results.response  ] } } }
                         { $push: { Files: { $each: [  {thumbnailUrl: thumbnailUrl, contentUrl: contentUrl, "AttachmentUploadDate" :LogTimeStame, "FileType" : "ticketAttachment" } ] } } }
                         )
