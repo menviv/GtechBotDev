@@ -1092,6 +1092,7 @@ bot.dialog('/getUserQuestion', [
 
          if (results.response) {
 
+/*
 
 blobSvc.createContainerIfNotExists('imagescontainer', {publicAccessLevel : 'blob'}, function(error, result, response){
     if(!error){
@@ -1100,7 +1101,7 @@ blobSvc.createContainerIfNotExists('imagescontainer', {publicAccessLevel : 'blob
       // content and metadata within this container
     }
 });             
-
+*/
                 session.send('File received.');
 
 var FileName;
