@@ -1094,13 +1094,21 @@ bot.dialog('/getUserQuestion', [
 
                 session.send('File received.');
 
+        var msg = new builder.Message(session)
+            .ntext("I got %d attachment.", "I got %d attachments.", results.response.length);
+        results.response.forEach(function (attachment) {
+            msg.addAttachment(attachment);    
+        });
+        session.send(msg);
+
+
                 var o_ID = new mongo.ObjectID(TicketID); 
 
                 var thumbnailUrl = results.response[0].thumbnailUrl;
 
                 var contentUrl = results.response[0].contentUrl;                
 
-/*
+
 blobSvc.createContainerIfNotExists('images', {publicAccessLevel : 'blob'}, function(error, result, response){
     if(!error){
       // Container exists and allows
@@ -1110,16 +1118,10 @@ blobSvc.createContainerIfNotExists('images', {publicAccessLevel : 'blob'}, funct
 });
 
 
-blobService.createBlockBlobFromLocalFile('mycontainer', 'taskblob', 'task1-upload.txt', function(error, result, response) {
-  if (!error) {
-    // file uploaded
-  }
-});
-
-*/
 
 
-blobSvc.createBlockBlobFromLocalFile('images', 'contentUrl', contentUrl, function(error, result, response){
+
+blobSvc.createBlockBlobFromLocalFile('images', 'contentUrl', msg, function(error, result, response){
   if (!error) {
     // file uploaded
   }
