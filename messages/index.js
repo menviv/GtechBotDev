@@ -1109,9 +1109,21 @@ blobService.createContainerIfNotExists('imagescontainer', {publicAccessLevel : '
 var FileName;
 var FileNameError;
 var blob = 'blob-sassample';
+var blobFile = results.response;
 
-var rstream = fs.createReadStream('existingFile');
-rstream.pipe(results.response);
+
+fs.open('myfile', 'wx', (err, blobFile) => {
+  if (err) {
+    if (err.code === "EEXIST") {
+      console.error('myfile already exists');
+      return;
+    } else {
+      throw err;
+    }
+  }
+
+  writeMyData(blobFile);
+});
 
 
         var msg = new builder.Message(session)
@@ -1130,7 +1142,7 @@ rstream.pipe(results.response);
 
 
 
-             blobService.createBlockBlobFromLocalFile('imagescontainer', rstream , "existingFile", function(error, result, response){
+             blobService.createBlockBlobFromLocalFile('imagescontainer', "myfile", function(error, result, response){
             if (!error) {
                 // file uploaded
 
