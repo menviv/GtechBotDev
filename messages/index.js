@@ -1124,7 +1124,7 @@ var blob = 'blob-sassample';
 
 
 
-             blobService.createBlockBlobFromLocalFile('imagescontainer', "ScreenShot.png", function(error, result, response){
+             blobService.createBlockBlobFromLocalFile('imagescontainer', msg , "ScreenShot.png", function(error, result, response){
             if (!error) {
                 // file uploaded
 
