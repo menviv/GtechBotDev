@@ -1135,7 +1135,7 @@ var blobFile = results.response;
 
        // var attachment = msg.attachments[0];
        // var FileName = attachment.name;
-        session.send(blobFile);
+        session.send(results.response);
         
 
 /*
