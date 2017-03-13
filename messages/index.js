@@ -1106,6 +1106,7 @@ blobService.createContainerIfNotExists('imagescontainer', {publicAccessLevel : '
 
 var FileName;
 var FileNameError;
+var blob = 'blob-sassample';
 
         var msg = new builder.Message(session)
             .ntext("I got %d attachment.", "I got %d attachments.", results.response.length);
@@ -1131,10 +1132,21 @@ var FileNameError;
 
             } else {
 
-                FileNameError = error;
+                FileNameError = 'error';
 
             }
         }); 
+
+
+          blobService.createBlockBlobFromText('imagescontainer', blob, 'test blob', function (error) {
+            if (error) {
+            console.log(error);
+            }
+            else {
+            console.log('Created the blob imagescontainer');
+            callback();
+            }
+        });
 
 
         session.send(FileNameError);
