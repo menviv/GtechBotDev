@@ -1113,15 +1113,6 @@ var blobFile = results.response;
 
 
 fs.open('myfile', 'wx', (err, blobFile) => {
-  if (err) {
-    if (err.code === "EEXIST") {
-      console.error('myfile already exists');
-      return;
-    } else {
-      throw err;
-    }
-  }
-
   writeMyData(blobFile);
 });
 
@@ -1142,7 +1133,7 @@ fs.open('myfile', 'wx', (err, blobFile) => {
 
 
 
-             blobService.createBlockBlobFromLocalFile('imagescontainer', "myfile", function(error, result, response){
+             blobService.createBlockBlobFromLocalFile('imagescontainer', "myfile", "myfile", function(error, result, response){
             if (!error) {
                 // file uploaded
 
