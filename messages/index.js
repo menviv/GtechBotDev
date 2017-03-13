@@ -1126,6 +1126,9 @@ var FileNameError;
              blobService.createBlockBlobFromLocalFile('imagescontainer', 'attachment', "ScreenShot.png", function(error, result, response){
             if (!error) {
                 // file uploaded
+
+                FileNameError = "success";
+
             } else {
 
                 FileNameError = error;
