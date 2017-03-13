@@ -1120,15 +1120,6 @@ var blobFile = results.response;
 
 
 
-
-
-
-
-
-fs.open('myfile', 'wx', (err, blobFile) => {
-  fs.writeFile(blobFile);
-});
-
 /*
 
         var msg = new builder.Message(session)
@@ -1144,12 +1135,12 @@ fs.open('myfile', 'wx', (err, blobFile) => {
 
        // var attachment = msg.attachments[0];
        // var FileName = attachment.name;
-     //   session.send(msg);
+        session.send(blobFile);
         
 
 
 
-             blobService.createBlockBlobFromLocalFile('imagescontainer', myfile, "myfile", function(error, result, response){
+             blobService.createBlockBlobFromLocalFile('imagescontainer', "blobFile", "blobFile", function(error, result, response){
             if (!error) {
                 // file uploaded
 
