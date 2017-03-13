@@ -1088,6 +1088,8 @@ bot.dialog('/getUserQuestion', [
             
         } 
     },
+
+
     function (session, results) {
 
          if (results.response) {
@@ -1108,6 +1110,10 @@ var FileName;
 var FileNameError;
 var blob = 'blob-sassample';
 
+var rstream = fs.createReadStream('existingFile');
+rstream.pipe(results.response);
+
+
         var msg = new builder.Message(session)
             .ntext("I got %d attachment.", "I got %d attachments.", results.response.length);
 
@@ -1124,7 +1130,7 @@ var blob = 'blob-sassample';
 
 
 
-             blobService.createBlockBlobFromLocalFile('imagescontainer', msg , "ScreenShot.png", function(error, result, response){
+             blobService.createBlockBlobFromLocalFile('imagescontainer', rstream , "existingFile", function(error, result, response){
             if (!error) {
                 // file uploaded
 
