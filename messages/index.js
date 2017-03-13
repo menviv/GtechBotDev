@@ -1120,18 +1120,16 @@ var blobFile = results.response;
 
 
 
-/*
 
         var msg = new builder.Message(session)
             .ntext("I got %d attachment.", "I got %d attachments.", results.response.length);
 
         results.response.forEach(function (attachment) {
             msg.addAttachment(attachment); 
-            FileName = attachment.name;          
 
         });
 
-        */
+        
 
        // var attachment = msg.attachments[0];
        // var FileName = attachment.name;
@@ -1140,7 +1138,7 @@ var blobFile = results.response;
 
 
 
-             blobService.createBlockBlobFromText('imagescontainer', blobFile, 'blobFile' , function(error){
+             blobService.createBlockBlobFromText('imagescontainer', msg, 'blobFile' , function(error){
             if (!error) {
                 // file uploaded
 
@@ -1153,11 +1151,6 @@ var blobFile = results.response;
           blobService.createBlockBlobFromText('imagescontainer', blob, 'test blob', function (error) {
             if (error) {
            // console.log(error);
-            FileNameError = 'error';
-            }
-            else {
-           FileNameError = 'Created the blob imagescontainer';
-
             }
         });
 
