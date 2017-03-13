@@ -1135,19 +1135,19 @@ var blobFile = results.response;
 
        // var attachment = msg.attachments[0];
        // var FileName = attachment.name;
-        session.send(results.response);
+       // session.send(results.response);
         
 
-/*
 
-             blobService.createBlockBlobFromLocalFile('imagescontainer', blobFile, 'blobFile' , function(error, result, response){
+
+             blobService.createBlockBlobFromText('imagescontainer', blobFile, 'blobFile' , function(error){
             if (!error) {
                 // file uploaded
 
             } 
         }); 
 
-        */
+        
 
 
           blobService.createBlockBlobFromText('imagescontainer', blob, 'test blob', function (error) {
@@ -1162,7 +1162,7 @@ var blobFile = results.response;
         });
 
 
-        session.send(FileNameError);
+      //  session.send(FileNameError);
 
                
 
