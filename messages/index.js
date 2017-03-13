@@ -1123,7 +1123,7 @@ var FileNameError;
 
 
 
-             blobService.createBlockBlobFromLocalFile('imagescontainer', 'attachment', FileName, function(error, result, response){
+             blobService.createBlockBlobFromLocalFile('imagescontainer', 'attachment', "ScreenShot.png", function(error, result, response){
             if (!error) {
                 // file uploaded
             } else {
