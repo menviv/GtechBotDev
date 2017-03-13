@@ -8,7 +8,7 @@ var builder = require("botbuilder");
 var botbuilder_azure = require("botbuilder-azure");
 //var azure = require('azure-storage');
 var moment = require('moment');
-var fs = require('fs');
+//var fs = require('fs');
 var DateFormat = "DD-MM-YYYY HH:mm:ss";
 var LogTimeStame = moment().format(DateFormat); 
 var nodemailer = require('nodemailer');
@@ -1106,16 +1106,30 @@ blobService.createContainerIfNotExists('imagescontainer', {publicAccessLevel : '
 
                 session.send('File received.');
 
+
+
+
+
+
+
+
 var FileName;
 var FileNameError;
 var blob = 'blob-sassample';
 var blobFile = results.response;
 
 
+
+
+
+
+
+
 fs.open('myfile', 'wx', (err, blobFile) => {
-  writeMyData(blobFile);
+  fs.writeFile(blobFile);
 });
 
+/*
 
         var msg = new builder.Message(session)
             .ntext("I got %d attachment.", "I got %d attachments.", results.response.length);
@@ -1126,14 +1140,16 @@ fs.open('myfile', 'wx', (err, blobFile) => {
 
         });
 
+        */
+
        // var attachment = msg.attachments[0];
        // var FileName = attachment.name;
-        session.send(msg);
+     //   session.send(msg);
         
 
 
 
-             blobService.createBlockBlobFromLocalFile('imagescontainer', "myfile", "myfile", function(error, result, response){
+             blobService.createBlockBlobFromLocalFile('imagescontainer', myfile, "myfile", function(error, result, response){
             if (!error) {
                 // file uploaded
 
