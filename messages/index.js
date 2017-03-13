@@ -1140,11 +1140,12 @@ var blob = 'blob-sassample';
 
           blobService.createBlockBlobFromText('imagescontainer', blob, 'test blob', function (error) {
             if (error) {
-            console.log(error);
+           // console.log(error);
+            FileNameError = 'error';
             }
             else {
-            console.log('Created the blob imagescontainer');
-            callback();
+           FileNameError = 'Created the blob imagescontainer';
+
             }
         });
 
