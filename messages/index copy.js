@@ -6,19 +6,12 @@ https://docs.botframework.com/en-us/node/builder/overview/
 "use strict";
 var builder = require("botbuilder");
 var botbuilder_azure = require("botbuilder-azure");
-//var azure = require('azure-storage');
+var azure = require('azure-storage');
 var moment = require('moment');
 var fs = require('fs');
 var DateFormat = "DD-MM-YYYY HH:mm:ss";
 var LogTimeStame = moment().format(DateFormat); 
 var nodemailer = require('nodemailer');
-//var azure = require('azure-storage');
-//var blobSvc = azure.createBlobService();
-//var blobSvc = azure.createBlobServiceAnonymous('https://gtechdevdata.blob.core.windows.net/');
-
-var azure = require('azure-storage');
-var blobService = azure.createBlobService();
-
 
 // Initialize mongo integration must
 
@@ -149,6 +142,7 @@ bot.on('trigger', function (message) {
 
 /*
 var instructions = 'Welcome to BuilderBot! This is an ALPHA version for a mighty efficiant Bot to scale the process of planning a new bot or to enhance an existing one. to showcase the DirectLine: Send \'myBot\' to see the list of questions or \'myUsers\' to see how the list of regitered users. Any other message will be echoed.';
+
 bot.on('conversationUpdate', function (activity) {
     if (activity.membersAdded) {
         activity.membersAdded.forEach((identity) => {
@@ -161,6 +155,7 @@ bot.on('conversationUpdate', function (activity) {
         });
     }
 });
+
 */
 
 
@@ -856,6 +851,7 @@ bot.dialog('/UserResponseToTicket', [
 
         var nTicketNumber = parseInt(TicketNumber);
 
+<<<<<<< HEAD
         var sTicketNO = nTicketNumber.toString();
 
 
@@ -879,10 +875,29 @@ bot.dialog('/UserResponseToTicket', [
 
         var ResponseObjec={};
         var ResponseLog = "\n\n ****************************************************************************************** \n";
+=======
+                var cursor = collTickets.find({ "ObjectNo" : nTicketNumber});
+                var result = [];
+                cursor.each(function(err, doc) {
+                    if(err)
+                        throw err;
+>>>>>>> parent of 51e89e2... version2.0.300
 
+                    if (doc === null) {
 
+                    var nresultLen = result.length;
 
-                            var cursor = collTicketResponses.find({"TicketNo": sTicketNO});
+                    if (nresultLen > 0 ) {
+
+                        var TicketTitle = result[0].ObjectTxt;
+
+                        var thumbnailUrl = result[0].Files[0].thumbnailUrl;
+
+                        GetUserReponsesForTicketNO()
+
+                        function GetUserReponsesForTicketNO() {
+
+                            var cursor = collTicketResponses.find({"TicketNO": sTicketNO});
                             var result = [];
                             cursor.each(function(err, doc) {
                                 if(err)
@@ -900,6 +915,7 @@ bot.dialog('/UserResponseToTicket', [
 
                                             for (var i=0; i<nResponsLen; i++ ) {
 
+<<<<<<< HEAD
                                                   //  var Objid = result[i]._id;
 
                                                   //  ResponseObjec[Objid]=[];
@@ -907,6 +923,9 @@ bot.dialog('/UserResponseToTicket', [
                                                  //   ResponseObjec[Objid].push({"CreatedTime": result[i].CreatedTime, "CreatedBy": result[i].CreatedBy,  "ObjectTxt": result[i].ObjectTxt });
 
                                                     ResponseLog = ResponseLog + result[i].CreatedTime + " | " + result[i].CreatedBy + "\n\n\n" + result[i].ObjectTxt + "\n\n\n";
+=======
+                                                    var ResponseObjec={};
+>>>>>>> parent of 51e89e2... version2.0.300
 
                                                    // ResponseObjec.CreatedTime = result[i].CreatedTime;
 
@@ -935,6 +954,7 @@ bot.dialog('/UserResponseToTicket', [
 
                                 } else {
 
+                                    var ResponseObjec={};
 
                                        ResponseObjec["NoReponse"]=[];
 
@@ -950,29 +970,93 @@ bot.dialog('/UserResponseToTicket', [
                                 }
                                 
                                 result.push(doc);
-                            });   
+                            });     
 
+
+                        }
 
 
                         function ReviewTicketWithResponses() {
+<<<<<<< HEAD
 
                           //  session.send("\n\n");
 
                          //   session.send("******************************************************************************************");
+=======
+                        
+
+                            //var thumbImg = "http://www.reedyreels.com/wp-content/uploads/2015/08/ticket-icon-RR-300x252.png";
+
+                            //var thumbImg;
+
+                           // if (result[i].Files != undefined) {
+
+                           //         thumbImg = result[0].Files[0].thumbnailUrl;
+
+                           // }
+
+                         //  session.send("ghjgjh" + ResponseObjec.CreatedTime);
+
+
+                                           var cursor = collTicketResponses.find({"TicketNO": TicketNumber});
+
+                                            var result = [];
+                                            cursor.each(function(err, doc) {
+                                                if(err)
+                                                    throw err;
+                                                if (doc === null) {
+
+                                                var nresultLen = result.length;
+
+                                                //     for (var i=0; i<nresultLen; i++ ) {
+
+                                                         
+
+                                                     //    session.send("response: " + result[i].ObjectTxt);
+
+
+                                                 //    }
+
+
+
+                                                    return;
+                                                }
+                                                // do something with each doc, like push Email into a results array
+                                                result.push(doc);
+                                            });
+
+
+
+>>>>>>> parent of 51e89e2... version2.0.300
     
                         /*    var msg = new builder.Message(session)
                                 .textFormat(builder.TextFormat.xml)
                                 .attachments([
                                     new builder.ThumbnailCard(session)
                                         .title('Ticket Card No: ' + TicketNumber)
+<<<<<<< HEAD
                                         .subtitle("Ticket Log: ")
                                         .text(ResponseLog)
+=======
+                                        .subtitle(TicketTitle)
+                                        .text(
+
+  
+                                            "result"
+
+                                        )
+                                        .images([
+                                            builder.CardImage.create(session, thumbnailUrl)
+                                        ])
+>>>>>>> parent of 51e89e2... version2.0.300
                                         //.tap(builder.CardAction.openUrl(session, "https://en.wikipedia.org/wiki/Space_Needle"))
                                         .buttons([
                                             builder.CardAction.dialogAction(session, "close", TicketNumber, "Close")
                                         ])
                                 ]);
+
                                 session.send(msg);
+
                         */
                             session.send(ResponseLog);
 
@@ -982,7 +1066,25 @@ bot.dialog('/UserResponseToTicket', [
 
                             builder.Prompts.text(session, "Your comment will be: "); 
 
-                        }     
+                        }
+
+
+
+                       // builder.Prompts.text(session, "Please provide me with the ticket number to load: "); 
+                        
+                    } else {
+
+                        session.send("I couldn't find your ticket...");
+
+                        session.beginDialog("/location", { location: "repath" });
+
+                    }
+
+                        return;
+                    }
+                    
+                    result.push(doc);
+                });  
 
 
     },   
@@ -1092,75 +1194,17 @@ bot.dialog('/getUserQuestion', [
 
          if (results.response) {
 
-
-
-blobService.createContainerIfNotExists('imagescontainer', {publicAccessLevel : 'blob'}, function(error, result, response){
-    if(!error){
-      // Container exists and allows
-      // anonymous read access to blob
-      // content and metadata within this container
-    }
-});             
-
                 session.send('File received.');
-
-var FileName;
-var FileNameError;
-
-        var msg = new builder.Message(session)
-            .ntext("I got %d attachment.", "I got %d attachments.", results.response.length);
-
-        results.response.forEach(function (attachment) {
-            msg.addAttachment(attachment); 
-            FileName = attachment.name;          
-
-        });
-
-       // var attachment = msg.attachments[0];
-       // var FileName = attachment.name;
-        session.send(msg);
-        
-
-
-
-             blobService.createBlockBlobFromLocalFile('imagescontainer', 'attachment', FileName, function(error, result, response){
-            if (!error) {
-                // file uploaded
-            } else {
-
-                FileNameError = error;
-
-            }
-        }); 
-
-        session.send(FileNameError);
-
-               
-
 
                 var o_ID = new mongo.ObjectID(TicketID); 
 
                 var thumbnailUrl = results.response[0].thumbnailUrl;
 
-                var contentUrl = results.response[0].contentUrl;                
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                var contentUrl = results.response[0].contentUrl;
 
                         collTickets.update (
                         { "_id": o_ID },
-                       // { $set: { 'attachement': msg, 'AttachmentUploadDate':LogTimeStame }}
+                       // { $set: { 'attachement': results.response, 'AttachmentUploadDate':LogTimeStame }}
                        // { $push: { Files: { $each: [  results.response  ] } } }
                         { $push: { Files: { $each: [  {thumbnailUrl: thumbnailUrl, contentUrl: contentUrl, "AttachmentUploadDate" :LogTimeStame, "FileType" : "ticketAttachment" } ] } } }
                         )
@@ -1584,14 +1628,13 @@ bot.dialog('/myTickets', [
 bot.dialog('/myPendingResTickets', [
     function (session) {
 
-        session.send("************ Pending Response Tickets ************");
+        session.send("##########************ Pending Response Tickets ************##########");
 
         var o_id = new mongo.ObjectID(UserID);
 
         var cursor = collTickets.find({"UserID": o_id, "Status": "Pending Customer Response"});        
 
         //var cursor = collTickets.find({"Status" : "new"});
-        
         var result = [];
         cursor.each(function(err, doc) {
             if(err)
@@ -1606,20 +1649,21 @@ bot.dialog('/myPendingResTickets', [
                                 .textFormat(builder.TextFormat.xml)
                                 .attachments([
                                     new builder.ThumbnailCard(session)
-                                        .title('Ticket Card No: ' + result[i].ObjectNo + " [ "+ result[i].Status + " ]")
-
-                                        .subtitle(result[i].ObjectTxt)
+                                       // .title('Ticket Card No: ' + result[i].ObjectNo + " [ "+ result[i].Status + " ]")
+                                        .title('Ticket Card No:')
+                                      //  .subtitle(result[i].ObjectTxt)
+                                        .subtitle("jkjkjkjkjkjkjkj")
                                         
-                                        //.images([
-                                        //    builder.CardImage.create(session, result[i].Files[0].contentUrl)
-                                        //])
+                                      //  .images([
+                                      //      builder.CardImage.create(session, result[i].Files[0].contentUrl)
+                                     //   ])
                                         //.tap(builder.CardAction.openUrl(session, "https://en.wikipedia.org/wiki/Space_Needle"))
                                         .buttons([
                                             builder.CardAction.dialogAction(session, "close", result[i].ObjectNo, "Close"),
                                             builder.CardAction.dialogAction(session, "review", result[i].ObjectNo, "Enter"),
                                             builder.CardAction.dialogAction(session, "comment", result[i].ObjectNo, "Comment")
                                         ])
-                                        .text("Last viewe by " + result[i].LastVieweBy + " at: " + result[i].LastVieweTime)
+                                      //  .text("LastVieweBy: " + result[i].LastVieweBy + " at: " + result[i].LastVieweTime)
                                         
                                 ]);
                             session.send(msg);
@@ -1632,8 +1676,7 @@ bot.dialog('/myPendingResTickets', [
             }
             // do something with each doc, like push Email into a results array
             result.push(doc);
-        }); 
-        
+        });      
 
     },
     function (session, results) {
@@ -3257,6 +3300,7 @@ bot.dialog('/WhoIsThatBot', [
 
 
 /*
+
 // Handle message from user
 bot.dialog('/', function (session) {
     var queuedMessage = { address: session.message.address, text: session.message.text };
@@ -3281,7 +3325,9 @@ bot.dialog('/', function (session) {
             session.send('There was an error creating your queue');
         }
     });
+
 });
+
 */
 
 if (useEmulator) {
@@ -3294,3 +3340,5 @@ if (useEmulator) {
 } else {
     module.exports = { default: connector.listen() }
 }
+
+

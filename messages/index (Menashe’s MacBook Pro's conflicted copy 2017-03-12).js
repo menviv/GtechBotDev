@@ -6,7 +6,8 @@ https://docs.botframework.com/en-us/node/builder/overview/
 "use strict";
 var builder = require("botbuilder");
 var botbuilder_azure = require("botbuilder-azure");
-//var azure = require('azure-storage');
+var http = require('http');
+var request = require('request');
 var moment = require('moment');
 var fs = require('fs');
 var DateFormat = "DD-MM-YYYY HH:mm:ss";
@@ -645,7 +646,7 @@ var paths = {
 
     "main": { 
         description: "",
-        commands: { "Pending Tickets": "mypendings", "My Tickets": "mytickets", "Search A Ticket": "searchtickets"  }
+        commands: { "Pending Tickets": "mypendings", "My Tickets": "mytickets", "Search A Ticket": "searchtickets", "Create Ticket": "support"  }
     },    
 
     "path": { 
@@ -1092,80 +1093,120 @@ bot.dialog('/getUserQuestion', [
 
          if (results.response) {
 
-
-
-blobService.createContainerIfNotExists('imagescontainer', {publicAccessLevel : 'blob'}, function(error, result, response){
-    if(!error){
-      // Container exists and allows
-      // anonymous read access to blob
-      // content and metadata within this container
-    }
-});             
-
                 session.send('File received.');
-
-var FileName;
-var FileNameError;
-
-        var msg = new builder.Message(session)
-            .ntext("I got %d attachment.", "I got %d attachments.", results.response.length);
-
-        results.response.forEach(function (attachment) {
-            msg.addAttachment(attachment); 
-            FileName = attachment.name;          
-
-        });
-
-       // var attachment = msg.attachments[0];
-       // var FileName = attachment.name;
-        session.send(msg);
-        
-
-
-
-             blobService.createBlockBlobFromLocalFile('imagescontainer', 'attachment', FileName, function(error, result, response){
-            if (!error) {
-                // file uploaded
-            } else {
-
-                FileNameError = error;
-
-            }
-        }); 
-
-        session.send(FileNameError);
-
-               
-
 
                 var o_ID = new mongo.ObjectID(TicketID); 
 
                 var thumbnailUrl = results.response[0].thumbnailUrl;
 
-                var contentUrl = results.response[0].contentUrl;                
+                var contentUrl = results.response[0].contentUrl; 
 
 
 
 
 
 
+var request = require('request').defaults({ encoding: null });
+
+var imagedata = request.get(contentUrl, function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+        data = "data:" + response.headers["content-type"] + ";base64," + new Buffer(body).toString('base64');
+        imagedata = data;
+        //session.send(data);
+
+       
+
+         blobService.createContainerIfNotExists('imagescontainer1', {
+            publicAccessLevel: 'blob'
+            }, function(error, result, response) {
+            if (!error) {
+
+            }
+        });
+
+         blobService.createBlockBlobFromText('imagescontainer1','downloaded.png', data, function(error, result, response) {
+            if (error) {
+                console.log(error);
+            }else{
+            console.log(result)
+            
+            }
+    });
 
 
 
-
-
-
-
+    }
+});
 
 
                         collTickets.update (
                         { "_id": o_ID },
-                       // { $set: { 'attachement': msg, 'AttachmentUploadDate':LogTimeStame }}
+                        { $set: { 'attachement': "imagedata", 'AttachmentUploadDate':LogTimeStame }}
+                        //{ $push: { Files: { $each: [  results.response  ] } } }
+                        //{ $push: { Files: { $each: [  {thumbnailUrl: thumbnailUrl, contentUrl: contentUrl, "AttachmentUploadDate" :LogTimeStame, "FileType" : "ticketAttachment" } ] } } }
+                        ) 
+
+
+
+
+
+/*
+
+    blobService.createContainerIfNotExists('imagescontainer', {
+    publicAccessLevel: 'blob'
+    }, function(error, result, response) {
+    if (!error) {
+
+    }
+    });
+
+
+    blobSvc.createBlockBlobFromLocalFile('imagescontainer', 'downloaded.png', request, function(error, result, response){
+    if (!error) {
+        // file uploaded
+    }
+    });
+
+
+
+
+//session.send("request: " + request);
+
+
+
+
+
+
+
+
+
+/*
+blobSvc.createContainerIfNotExists('images', {publicAccessLevel : 'blob'}, function(error, result, response){
+    if(!error){
+      // Container exists and allows
+      // anonymous read access to blob
+      // content and metadata within this container
+    }
+});
+blobService.createBlockBlobFromLocalFile('mycontainer', 'taskblob', 'task1-upload.txt', function(error, result, response) {
+  if (!error) {
+    // file uploaded
+  }
+});
+*/
+
+                        collTickets.update (
+                        { "_id": o_ID },
+                       // { $set: { 'attachement': results.response, 'AttachmentUploadDate':LogTimeStame }}
                        // { $push: { Files: { $each: [  results.response  ] } } }
                         { $push: { Files: { $each: [  {thumbnailUrl: thumbnailUrl, contentUrl: contentUrl, "AttachmentUploadDate" :LogTimeStame, "FileType" : "ticketAttachment" } ] } } }
                         )
 
                          session.send("Nice one! Thanks...");
+
+
+
+
 
                         session.beginDialog("/location", { location: "repath" });
 
