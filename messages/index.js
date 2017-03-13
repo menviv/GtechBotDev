@@ -1138,20 +1138,16 @@ var blobFile = results.response;
         session.send(blobFile);
         
 
+/*
 
-
-             blobService.createBlockBlobFromLocalFile('imagescontainer', "blobFile", "blobFile", function(error, result, response){
+             blobService.createBlockBlobFromLocalFile('imagescontainer', blobFile, 'blobFile' , function(error, result, response){
             if (!error) {
                 // file uploaded
 
-                FileNameError = "success";
-
-            } else {
-
-                FileNameError = 'error';
-
-            }
+            } 
         }); 
+
+        */
 
 
           blobService.createBlockBlobFromText('imagescontainer', blob, 'test blob', function (error) {
