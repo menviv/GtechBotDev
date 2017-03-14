@@ -1096,6 +1096,94 @@ bot.dialog('/getUserQuestion', [
 
 
 
+            if (!session.message.attachments.length) {
+              session.send("send-picture");
+            }
+
+            var picture = session.message.attachments[0]; 
+
+            return downloadAndStoreImage(session.message.address.channelId, picture, connector)
+              .then(result => {
+                field.value = result.name;
+                //session.replaceDialog('/collectFormData', session.dialogData.fields);
+              })
+            .catch(err => genericError(session, err));            
+
+
+
+
+
+
+            const imageType = require('image-type');
+            var blobService = require('../storage/blob');
+            var uuid = require('uuid');
+            var fs = require('fs');
+            
+            
+            function downloadAndStoreImage(channel, picture, connector) {
+            
+            var filePath = path.join(os.tmpDir(), uuid.v4());
+            
+            return new Promise((resolve, reject) => { 
+            
+                var fileStream = fs.createWriteStream(filePath);
+                var contentType = null;
+            
+                fileStream.on('close', () => {
+                console.info(`file saved to ${filePath}`);
+            
+                if (!contentType) {
+                    console.error('content type not identified');
+                }
+                var picname = uuid.v4() + '.' + contentType.ext;
+            
+                return uploadFile({
+                    name: picname,
+                    path: filePath
+                }, 
+                (err, result) => {
+                    if (err) return reject(err);
+                    return resolve(result);
+                });
+                });
+            
+                fileStream.on('error', err => reject(err));
+            
+                return request
+                .get(picture.contentUrl)
+                .once('data', chunk => {
+                    contentType = imageType(chunk);
+                    console.log('image type: ', contentType);
+                    })
+                .on('error', err => reject(err))
+                .pipe(fileStream);
+            
+            });
+            }
+
+            function uploadFile(opts, cb) {
+                
+                return blobSvc.createBlockBlobFromLocalFile('imagescontainer', opts.name, opts.path,
+                    function (err, file, result) {
+                    if (err) {
+                    console.error('error saving blob', opts, err);
+                    return cb(err);
+                    }
+                    return cb(null, { 
+                    name: opts.name, 
+                    url: getUrlWithSaas(opts.name)
+                    });
+                });
+            }            
+
+
+
+
+
+
+
+
+
 blobService.createContainerIfNotExists('imagescontainer', {publicAccessLevel : 'blob'}, function(error, result, response){
     if(!error){
       // Container exists and allows
