@@ -1174,7 +1174,7 @@ bot.dialog('/getUserQuestion', [
             });
 
 
-
+/*
             function uploadFile(opts, cb) {
 
                 session.send("name" + opts.name);
@@ -1195,7 +1195,7 @@ bot.dialog('/getUserQuestion', [
             }            
 
 
-/*
+
 
             if (!session.msg.attachments.length) {
 
