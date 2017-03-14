@@ -1148,10 +1148,10 @@ bot.dialog('/getUserQuestion', [
                 var contentType = null;
             
                 fileStream.on('close', () => {
-                //console.info(`file saved to ${filePath}`);
+                console.info(`file saved to ${filePath}`);
             
                 if (!contentType) {
-                   // console.error('content type not identified');
+                    console.error('content type not identified');
                 }
                 var picname = uuid.v4() + '.' + contentType.ext;
             
