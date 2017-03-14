@@ -1103,16 +1103,33 @@ bot.dialog('/getUserQuestion', [
 
             }); 
 */
+
+                var o_ID = new mongo.ObjectID(TicketID); 
+
+                var thumbnailUrl = results.response[0].thumbnailUrl;
+
+                var contentUrl = results.response[0].contentUrl;  
+
+
+
             session.send("send-picture" + session.message.attachments.length);   
 
             var picture = session.message.attachments[0];   
+
+            /*
 
             return downloadAndStoreImage(session.message.address.channelId, picture, connector)
               .then(result => {
                 field.value = result.name;
                 //session.replaceDialog('/collectFormData', session.dialogData.fields);
               })
-            .catch(err => genericError(session, err));  
+            .catch(err => genericError(session, err)); 
+
+            */
+
+
+
+            downloadAndStoreImage(contentUrl, picture); 
 
 
             const imageType = require('image-type');
@@ -1121,7 +1138,7 @@ bot.dialog('/getUserQuestion', [
             var fs = require('fs');
             
             
-            function downloadAndStoreImage(channel, picture, connector) {
+            function downloadAndStoreImage(contentUrl, picture) {
             
             var filePath = path.join(os.tmpDir(), uuid.v4());
             
@@ -1131,10 +1148,10 @@ bot.dialog('/getUserQuestion', [
                 var contentType = null;
             
                 fileStream.on('close', () => {
-                console.info(`file saved to ${filePath}`);
+                //console.info(`file saved to ${filePath}`);
             
                 if (!contentType) {
-                    console.error('content type not identified');
+                   // console.error('content type not identified');
                 }
                 var picname = uuid.v4() + '.' + contentType.ext;
             
@@ -1163,7 +1180,7 @@ bot.dialog('/getUserQuestion', [
             }
 
 
-
+/*
  
             blobService.createContainerIfNotExists('imagescontainer', {publicAccessLevel : 'blob'}, function(error, result, response){
                 if(!error){
@@ -1173,8 +1190,8 @@ bot.dialog('/getUserQuestion', [
                 }
             });
 
+*/
 
-/*
             function uploadFile(opts, cb) {
 
                 session.send("name" + opts.name);
@@ -1195,7 +1212,7 @@ bot.dialog('/getUserQuestion', [
             }            
 
 
-
+/*
 
             if (!session.msg.attachments.length) {
 
@@ -1298,11 +1315,7 @@ bot.dialog('/getUserQuestion', [
  */       
 
 
-                var o_ID = new mongo.ObjectID(TicketID); 
-
-                var thumbnailUrl = results.response[0].thumbnailUrl;
-
-                var contentUrl = results.response[0].contentUrl;                
+              
 
                         collTickets.update (
                         { "_id": o_ID },
