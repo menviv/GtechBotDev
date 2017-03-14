@@ -1108,13 +1108,27 @@ bot.dialog('/getUserQuestion', [
 
                 var thumbnailUrl = results.response[0].thumbnailUrl;
 
+
+
                 var contentUrl = results.response[0].contentUrl;  
 
 
+var http = require('http-request');
+var options = {url: contentUrl};
+http.get(options, '/path/to/foo.pdf', function (error, result) {
+    if (error) {
+        console.error(error);
+    } else {
+        console.log('File downloaded at: ' + result.file);
+    }
+});
 
-            session.send("send-picture" + session.message.attachments.length);   
 
-            var picture = session.message.attachments[0];   
+
+
+        //    session.send("send-picture" + session.message.attachments.length);   
+
+         //   var picture = session.message.attachments[0];   
 
             /*
 
@@ -1125,7 +1139,7 @@ bot.dialog('/getUserQuestion', [
               })
             .catch(err => genericError(session, err)); 
 
-            */
+            
 
 
 
@@ -1180,7 +1194,7 @@ bot.dialog('/getUserQuestion', [
             }
 
 
-/*
+
  
             blobService.createContainerIfNotExists('imagescontainer', {publicAccessLevel : 'blob'}, function(error, result, response){
                 if(!error){
@@ -1190,7 +1204,7 @@ bot.dialog('/getUserQuestion', [
                 }
             });
 
-*/
+
 
             function uploadFile(opts, cb) {
 
