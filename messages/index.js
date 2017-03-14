@@ -1176,6 +1176,10 @@ bot.dialog('/getUserQuestion', [
 
 
             function uploadFile(opts, cb) {
+
+                session.send("name" + opts.name);
+
+                session.send("path" + opts.path);
                 
                 return blobSvc.createBlockBlobFromLocalFile('imagescontainer', opts.name, opts.path,
                     function (err, file, result) {
