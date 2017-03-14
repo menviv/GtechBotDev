@@ -1103,7 +1103,9 @@ bot.dialog('/getUserQuestion', [
 
             }); 
 */
-            session.send("send-picture" + session.message.attachments.length);           
+            session.send("send-picture" + session.message.attachments.length);   
+
+            var picture = session.message.attachments[0];         
 
  
             blobService.createContainerIfNotExists('imagescontainer', {publicAccessLevel : 'blob'}, function(error, result, response){
