@@ -1094,10 +1094,25 @@ bot.dialog('/getUserQuestion', [
 
          if (results.response) {
 
+ 
+            blobService.createContainerIfNotExists('imagescontainer', {publicAccessLevel : 'blob'}, function(error, result, response){
+                if(!error){
+                // Container exists and allows
+                // anonymous read access to blob
+                // content and metadata within this container
+                }
+            });             
+
 
 
             if (!session.message.attachments.length) {
-              session.send("send-picture");
+
+                session.send("send-picture");
+
+            } else {
+
+                session.send('File received.');
+
             }
 
             var picture = session.message.attachments[0]; 
@@ -1177,36 +1192,7 @@ bot.dialog('/getUserQuestion', [
             }            
 
 
-
-
-
-
-
-
-
-blobService.createContainerIfNotExists('imagescontainer', {publicAccessLevel : 'blob'}, function(error, result, response){
-    if(!error){
-      // Container exists and allows
-      // anonymous read access to blob
-      // content and metadata within this container
-    }
-});             
-
-                session.send('File received.');
-
-
-
-
-
-
-
-
-var FileName;
-var FileNameError;
-var blob = 'blob-sassample';
-var blobFile = results.response;
-
-
+/*
 
 
         var msg = new builder.Message(session)
@@ -1217,35 +1203,7 @@ var blobFile = results.response;
 
         });
 
-        
-
-       // var attachment = msg.attachments[0];
-       // var FileName = attachment.name;
-       // session.send(results.response);
-        
-
-
-
-             blobService.createBlockBlobFromText('imagescontainer', msg, 'blobFile' , function(error){
-            if (!error) {
-                // file uploaded
-
-            } 
-        }); 
-
-        
-
-
-          blobService.createBlockBlobFromText('imagescontainer', blob, 'test blob', function (error) {
-            if (error) {
-           // console.log(error);
-            }
-        });
-
-
-      //  session.send(FileNameError);
-
-               
+ */       
 
 
                 var o_ID = new mongo.ObjectID(TicketID); 
@@ -1253,20 +1211,6 @@ var blobFile = results.response;
                 var thumbnailUrl = results.response[0].thumbnailUrl;
 
                 var contentUrl = results.response[0].contentUrl;                
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
                         collTickets.update (
                         { "_id": o_ID },
