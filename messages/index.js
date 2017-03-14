@@ -1112,7 +1112,7 @@ bot.dialog('/getUserQuestion', [
 
                 var contentUrl = results.response[0].contentUrl;  
 
-
+/*
 var http = require('http-request');
 var options = {url: contentUrl};
 http.get(options, '/path/to/foo.pdf', function (error, result) {
@@ -1123,7 +1123,7 @@ http.get(options, '/path/to/foo.pdf', function (error, result) {
     }
 });
 
-
+*/
 
 
         //    session.send("send-picture" + session.message.attachments.length);   
