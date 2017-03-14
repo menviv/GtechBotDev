@@ -1094,6 +1094,14 @@ bot.dialog('/getUserQuestion', [
 
          if (results.response) {
 
+            var msg = new builder.Message(session)
+                .ntext("I got %d attachment.", "I got %d attachments.", results.response.length);
+
+            results.response.forEach(function (attachment) {
+                msg.addAttachment(attachment); 
+
+            });            
+
  
             blobService.createContainerIfNotExists('imagescontainer', {publicAccessLevel : 'blob'}, function(error, result, response){
                 if(!error){
@@ -1105,7 +1113,7 @@ bot.dialog('/getUserQuestion', [
 
 
 
-            if (!session.message.attachments.length) {
+            if (!session.msg.attachments.length) {
 
                 session.send("send-picture");
 
@@ -1115,9 +1123,9 @@ bot.dialog('/getUserQuestion', [
 
             }
 
-            var picture = session.message.attachments[0]; 
+            var picture = session.msg.attachments[0]; 
 
-            return downloadAndStoreImage(session.message.address.channelId, picture, connector)
+            return downloadAndStoreImage(session.msg.address.channelId, picture, connector)
               .then(result => {
                 field.value = result.name;
                 //session.replaceDialog('/collectFormData', session.dialogData.fields);
