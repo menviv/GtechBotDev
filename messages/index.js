@@ -1094,13 +1094,16 @@ bot.dialog('/getUserQuestion', [
 
          if (results.response) {
 
+/*
             var msg = new builder.Message(session)
                 .ntext("I got %d attachment.", "I got %d attachments.", results.response.length);
 
             results.response.forEach(function (attachment) {
                 msg.addAttachment(attachment); 
 
-            });            
+            }); 
+*/
+            session.send("send-picture" + session.message.attachments.length);           
 
  
             blobService.createContainerIfNotExists('imagescontainer', {publicAccessLevel : 'blob'}, function(error, result, response){
@@ -1111,7 +1114,7 @@ bot.dialog('/getUserQuestion', [
                 }
             });             
 
-
+/*
 
             if (!session.msg.attachments.length) {
 
@@ -1198,7 +1201,7 @@ bot.dialog('/getUserQuestion', [
                     });
                 });
             }            
-
+*/
 
 /*
 
